@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Alatsi&display=swap');
+
 html, body {
   margin: 0;
   padding: 0;
@@ -6,8 +8,12 @@ html, body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: 'Alatsi', sans-serif;
   color: white;
+}
+
+#weatherApp {
+  display: flex;
 }
 
 h4 {
@@ -17,18 +23,28 @@ h4 {
 }
 
 h2 {
-  font-size: 130px;
+  font-size: 120px;
   margin: 0;
+  /* font-weight: 300; */
 }
 
-.locationCard {
+.weatherCard {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 400px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   margin-top: 100px;
-  background: teal;
   padding: 80px;
   border-radius: 50%;
+}
+
+.AboveZero {
+  background: #cbba83;
+  border: 40px solid #ffecb3;
+}
+
+.BelowZero {
+  background: #81b9bf;
+  border: 40px solid #b2ebf2;
 }

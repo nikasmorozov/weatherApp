@@ -10,16 +10,63 @@ function getWeatherData() {
 
         app.innerHTML = null;
 
-        const locationCard = createDomElement('div', {
-          className: 'locationCard'
-        });
+        let weatherCard = null;
+
+        if (data.forecastTimestamps[0].airTemperature > 0) {
+            weatherCard = createDomElement('div', {
+            className: 'weatherCard AboveZero'
+          });
+        };
+
+        if (data.forecastTimestamps[0].airTemperature < 0) {
+            weatherCard = createDomElement('div', {
+            className: 'weatherCard BelowZero'
+          });
+        };
 
         const cityName = createDomElement('h4', { textContent: data.place.name });
-        const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[0].airTemperature + ' &#8451;' });
+        const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[0].airTemperature + '&#176;' });
 
-        addToDom(app, locationCard);
-        addToDom(locationCard, temperature);
-        addToDom(locationCard, cityName);
+        addToDom(app, weatherCard);
+        addToDom(weatherCard, temperature);
+        addToDom(weatherCard, cityName);
+        console.log(data)
+      }
+    )
+    .catch(
+      function (e) {
+        console.log(e);
+      }
+    );
+
+    fetch('https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/kaunas/forecasts/long-term')
+    .then((resp) => resp.json())
+    .then(
+      function (data) {
+        const app = document.getElementById('weatherApp');
+
+        // app.innerHTML = null;
+
+        let weatherCard = null;
+
+        if (data.forecastTimestamps[0].airTemperature > 0) {
+            weatherCard = createDomElement('div', {
+            className: 'weatherCard AboveZero'
+          });
+        };
+
+        if (data.forecastTimestamps[0].airTemperature < 0) {
+            weatherCard = createDomElement('div', {
+            className: 'weatherCard BelowZero'
+          });
+        };
+
+        const cityName = createDomElement('h4', { textContent: data.place.name });
+        const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[0].airTemperature + '&#176;' });
+
+        addToDom(app, weatherCard);
+        addToDom(weatherCard, temperature);
+        addToDom(weatherCard, cityName);
         console.log(data)
       }
     )

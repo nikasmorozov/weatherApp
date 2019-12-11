@@ -1,0 +1,36 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #e1e1e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: white;
+}
+
+h4 {
+  font-size: 30px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 130px;
+  margin: 0;
+}
+
+.locationCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+  margin-top: 100px;
+  background: teal;
+  padding: 80px;
+  border-radius: 50%;
+}
+
+/*# sourceMappingURL=/src.9ad09f98.css.map */

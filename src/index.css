@@ -7,7 +7,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  /* text-align: center; */
   font-family: 'Alatsi', sans-serif;
   color: white;
 }
@@ -17,34 +17,35 @@ html, body {
 }
 
 h4 {
-  font-size: 30px;
+  font-size: 20px;
   margin: 0;
   text-transform: uppercase;
 }
 
 h2 {
-  font-size: 120px;
+  font-size: 40px;
   margin: 0;
-  /* font-weight: 300; */
+  font-weight: 400;
 }
 
 .weatherCard {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 200px;
-  height: 200px;
   margin-top: 100px;
   padding: 80px;
-  border-radius: 50%;
 }
 
 .AboveZero {
   background: #cbba83;
-  border: 40px solid #ffecb3;
+  border-top: 40px solid #ffecb3;
 }
 
 .BelowZero {
   background: #81b9bf;
-  border: 40px solid #b2ebf2;
+  border-top: 40px solid #b2ebf2;
+}
+
+.temperatureData:nth-of-type(1) {
+  font-size: 80px;
 }

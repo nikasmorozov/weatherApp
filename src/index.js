@@ -1,48 +1,59 @@
 const { createDomElement, addToDom } = require('./utilities');
 const searchCities = document.getElementById('searchCities');
 
-let city = null;
-
+let city = searchCities;
 let cityData = null;
+const renderedCities = createDomElement('div', { className: 'renderedCities' });
 
-function renderCities () {
-  fetch('https://cors-anywhere.herokuapp.com/https://api.meteo.lt/v1/places')
-  .then((response => response.json()))
-  .then(
-    function(data) {
-      console.log(data);
-      cityData = data;
-      searchCities.addEventListener('input', filterCities)
-    }
-  )
-  .catch(
-    function (e) {
-      console.log(e);
-    }
-  );
-};
-
-function filterCities () {
-  const filteredCities = cityData.filter(function(value){
-    if (value.code === searchCities.value) {
-      return true;
-    }
-  })
-  console.log(filteredCities)
-}
-
-renderCities();
+searchCities.addEventListener('input', filterCities)
 
 addEventListener('keydown', function (e) {
   if (e.keyCode === 13) {
-    city = document.getElementById('cityToRender').value;
-    changeCity(city);
+    changeCity(city.value);
   }
 });
 
-function changeCity(city) {
+function renderCities() {
+  fetch('https://cors-anywhere.herokuapp.com/https://api.meteo.lt/v1/places')
+    .then((response => response.json()))
+    .then(
+      function (data) {
+        cityData = data;
+        searchCities.addEventListener('input', filterCities)
+      }
+    )
+    .catch(
+      function (e) {
+        console.log(e);
+      }
+    );
+};
+
+function filterCities() {
+
+  console.clear();
+
+  addToDom(weatherApp, renderedCities);
+
+  const filteredCities = cityData.filter(function (value) {
+    if (value.code.includes(searchCities.value)) {
+      return true;
+    }
+  });
+
+  filteredCities.forEach(function (value) {
+    let x = JSON.stringify(value.code);
+    // addToDom(renderedCities, x)
+
+    console.log(x);
+  })
+};
+
+function changeCity(city = 'vilnius-antakalnis') {
   // kaip is-return-inti linkToRender reiksme is funkcijos?
   let linkToRender = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
+
+
 
   console.log(linkToRender);
 
@@ -89,7 +100,7 @@ function changeCity(city) {
               case 3:
                 timeName = 'in three hours: ';
                 break;
-              
+
             };
 
             const timeStamp = createDomElement('h4', { innerHTML: timeName + data.forecastTimestamps[i].airTemperature + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode + '  ' });
@@ -106,7 +117,7 @@ function changeCity(city) {
 
           console.log(data)
 
-          document.getElementById('cityToRender').value = null;
+          document.getElementById('searchCities').value = null;
         }
       )
       .catch(
@@ -119,4 +130,6 @@ function changeCity(city) {
   getWeatherData();
 };
 
-changeCity('vilnius-antakalnis');
+renderCities();
+
+changeCity();

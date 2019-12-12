@@ -28,7 +28,7 @@ function getWeatherData() {
         addToDom(weatherCard, cityName);
       
         for (i = 0; i < 4; i++) { 
-          console.log(i + '  ' +  + '  ' + data.forecastTimestamps[i].airTemperature);
+          console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
             const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode});
             temperature.classList.add('temperatureData');
             addToDom(weatherCard, temperature);

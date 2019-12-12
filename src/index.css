@@ -7,7 +7,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* text-align: center; */
+  flex-direction: column;
   font-family: 'Alatsi', sans-serif;
   color: white;
 }
@@ -40,14 +40,27 @@ h2 {
 
 .AboveZero {
   background: #cbba83;
-  border-top: 70px solid #ffecb3;
+  border-top: 60px solid #ffecb3;
 }
 
 .BelowZero {
   background: #81b9bf;
-  border-top: 70px solid #b2ebf2;
+  border-top: 60px solid #b2ebf2;
 }
 
 .temperatureData:nth-of-type(1) {
   font-size: 5rem;
+}
+
+.conditionSymbol {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  background-position: center;
+  background-size: contain;
+  fill: white;
+}
+
+.clear {
+  background-image: url(./icons/iconfinder_Sunny_3741356.svg)
 }

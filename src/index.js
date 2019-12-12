@@ -1,8 +1,25 @@
-const { createDomElement, addToDom } = require('./utilities')
+const { createDomElement, addToDom } = require('./utilities');
 
-function getWeatherData() {
+let city = null;
 
-    fetch('https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/utena/forecasts/long-term')
+addEventListener('keydown', function(e){
+  if (e.keyCode === 13) {
+  city = document.getElementById('cityToRender').value;
+  changeCity(city);
+}
+});
+
+function changeCity (city) {
+    // kaip is-return-inti linkToRender reiksme is funkcijos?
+  let linkToRender = 'https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/' + city + '/forecasts/long-term';
+
+  city.value = null;
+  
+  console.log(linkToRender);
+
+  function getWeatherData() {
+
+    fetch(linkToRender)
     .then((resp) => resp.json())
     .then(
       function (data) {
@@ -32,6 +49,12 @@ function getWeatherData() {
             const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode});
             temperature.classList.add('temperatureData');
             addToDom(weatherCard, temperature);
+
+            const weatherIcon = createDomElement('div', {
+              className: 'conditionSymbol'
+            });
+            weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
+            addToDom(temperature, weatherIcon);
         };
         
         console.log(data)
@@ -44,4 +67,7 @@ function getWeatherData() {
     );
 };
 
-getWeatherData();
+  getWeatherData();
+};
+
+changeCity('vilnius');

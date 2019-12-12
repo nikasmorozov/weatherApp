@@ -12,8 +12,6 @@ addEventListener('keydown', function(e){
 function changeCity (city) {
     // kaip is-return-inti linkToRender reiksme is funkcijos?
   let linkToRender = 'https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/' + city + '/forecasts/long-term';
-
-  city.value = null;
   
   console.log(linkToRender);
 
@@ -41,12 +39,13 @@ function changeCity (city) {
 
         addToDom(app, weatherCard);
 
-        const cityName = createDomElement('h4', { textContent: data.place.name });
+        const cityName = createDomElement('h2', { textContent: data.place.name });
         addToDom(weatherCard, cityName);
       
         for (i = 0; i < 4; i++) { 
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
-            const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode});
+            const temperature = createDomElement('h4', { innerHTML: data.forecastTimestamps[i].airTemperature + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode + '  '});
+
             temperature.classList.add('temperatureData');
             addToDom(weatherCard, temperature);
 
@@ -58,6 +57,8 @@ function changeCity (city) {
         };
         
         console.log(data)
+
+        document.getElementById('cityToRender').value = null;
       }
     )
     .catch(
@@ -70,4 +71,4 @@ function changeCity (city) {
   getWeatherData();
 };
 
-changeCity('vilnius');
+changeCity('vilnius-antakalnis');

@@ -2,27 +2,25 @@ const { createDomElement, addToDom } = require('./utilities')
 
 function getWeatherData() {
 
-    fetch('https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/vilnius/forecasts/long-term')
+    fetch('https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/utena/forecasts/long-term')
     .then((resp) => resp.json())
     .then(
       function (data) {
         const app = document.getElementById('weatherApp');
 
-        // app.innerHTML = null;
+        app.innerHTML = null;
 
         let weatherCard = null;
 
-        if (data.forecastTimestamps[0].airTemperature > 0) {
-            weatherCard = createDomElement('div', {
-            className: 'weatherCard AboveZero'
-          });
-        };
+        weatherCard = createDomElement('div', {
+          className: 'weatherCard'
+        })
 
-        if (data.forecastTimestamps[0].airTemperature < 0) {
-            weatherCard = createDomElement('div', {
-            className: 'weatherCard BelowZero'
-          });
-        };
+        if (data.forecastTimestamps[0].airTemperature > 0) {
+          weatherCard.classList.add('AboveZero');
+        } else {
+          weatherCard.classList.add('BelowZero');
+        }
 
         addToDom(app, weatherCard);
 

@@ -175,7 +175,9 @@ function changeCity(city = 'vilnius') {
                 break;
             };
 
-            const timeStamp = createDomElement('h4', { innerHTML: timeName + data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#176;' + ' ' + conditionCodeLt });
+            const temperature = data.forecastTimestamps[i].airTemperature.toFixed(0);
+            
+            const timeStamp = createDomElement('h4', { innerHTML: timeName + temperature + '&#176;' + ' ' + conditionCodeLt });
 
             timeStamp.classList.add('temperatureData');
             addToDom(weatherCard, timeStamp);

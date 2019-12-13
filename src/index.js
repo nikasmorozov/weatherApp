@@ -3,7 +3,7 @@ const searchCities = document.getElementById('searchCities');
 
 let city = searchCities;
 let cityData = null;
-const renderedCities = createDomElement('div', { className: 'renderedCities' });
+const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
 searchCities.addEventListener('input', filterCities)
 
@@ -33,7 +33,7 @@ function filterCities() {
 
   console.clear();
 
-  addToDom(weatherApp, renderedCities);
+  addToDom(weatherApp, locationsCard);
 
   const filteredCities = cityData.filter(function (value) {
     if (value.code.includes(searchCities.value)) {
@@ -41,19 +41,30 @@ function filterCities() {
     }
   });
 
-  filteredCities.forEach(function (value) {
-    let x = JSON.stringify(value.code);
-    // addToDom(renderedCities, x)
+  locationsCard.innerHTML = null;
 
-    console.log(x);
-  })
+  for (i = 0; i < 20; i++) {
+    
+    addToDom(weatherApp, locationsCard);
+
+    const locationToRender = createDomElement('button', {
+      textContent: filteredCities[i].code
+    });
+
+    locationToRender.id = filteredCities[i].code;
+    
+    locationToRender.addEventListener('click', function() {
+      changeCity(locationToRender.id);
+    });
+    addToDom(locationsCard, locationToRender);
+
+    console.log(filteredCities[i].code)
+  };
 };
 
 function changeCity(city = 'vilnius-antakalnis') {
   // kaip is-return-inti linkToRender reiksme is funkcijos?
   let linkToRender = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
-
-
 
   console.log(linkToRender);
 
@@ -73,7 +84,7 @@ function changeCity(city = 'vilnius-antakalnis') {
             className: 'weatherCard'
           })
 
-          if (data.forecastTimestamps[0].airTemperature > 0) {
+          if (data.forecastTimestamps[2].airTemperature > 0) {
             weatherCard.classList.add('AboveZero');
           } else {
             weatherCard.classList.add('BelowZero');
@@ -84,12 +95,12 @@ function changeCity(city = 'vilnius-antakalnis') {
           const cityName = createDomElement('h2', { textContent: data.place.name });
           addToDom(weatherCard, cityName);
 
-          for (i = 0; i < 4; i++) {
+          for (i = 2; i < 6; i++) {
             console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
-            switch (i) {
+            switch (i-2) {
               case 0:
-                timeName = 'now: ';
+                timeName = 'dabar: ';
                 break;
               case 1:
                 timeName = 'in one hour: ';
@@ -103,7 +114,7 @@ function changeCity(city = 'vilnius-antakalnis') {
 
             };
 
-            const timeStamp = createDomElement('h4', { innerHTML: timeName + data.forecastTimestamps[i].airTemperature + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode + '  ' });
+            const timeStamp = createDomElement('h4', { innerHTML: timeName + data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode + '  ' });
 
             timeStamp.classList.add('temperatureData');
             addToDom(weatherCard, timeStamp);

@@ -1,11 +1,11 @@
 const { createDomElement, addToDom } = require('./utilities');
-const searchCities = document.getElementById('searchCities');
+const cityToSearch = document.getElementById('cityToSearch');
 
-let city = searchCities;
+let city = cityToSearch;
 let cityData = null;
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
-searchCities.addEventListener('input', filterCities)
+cityToSearch.addEventListener('input', filterCities)
 
 addEventListener('keydown', function (e) {
   if (e.keyCode === 13) {
@@ -19,7 +19,7 @@ function renderCities() {
     .then(
       function (data) {
         cityData = data;
-        searchCities.addEventListener('input', filterCities)
+        cityToSearch.addEventListener('input', filterCities)
       }
     )
     .catch(
@@ -36,7 +36,7 @@ function filterCities() {
   addToDom(weatherApp, locationsCard);
 
   const filteredCities = cityData.filter(function (value) {
-    if (value.code.includes(searchCities.value)) {
+    if (value.code.includes(cityToSearch.value)) {
       return true;
     }
   });
@@ -64,13 +64,13 @@ function filterCities() {
 
 function changeCity(city = 'vilnius-antakalnis') {
   // kaip is-return-inti linkToRender reiksme is funkcijos?
-  let linkToRender = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
+  let linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
-  console.log(linkToRender);
+  console.log(linkToFetch);
 
   function getWeatherData() {
 
-    fetch(linkToRender)
+    fetch(linkToFetch)
       .then((response) => response.json())
       .then(
         function (data) {

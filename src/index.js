@@ -73,11 +73,17 @@ function changeCity(city = 'vilnius') {
 
   function renderWeatherData() {
 
+    const app = document.getElementById('weatherApp');
+
+    const preloader = createDomElement('div', {
+      className: 'preloader'
+    });
+    addToDom(weatherApp, preloader);
+
     fetch(linkToFetch)
       .then((response) => response.json())
       .then(
         function (data) {
-          const app = document.getElementById('weatherApp');
 
           app.innerHTML = null;
 
@@ -155,7 +161,7 @@ function changeCity(city = 'vilnius') {
               case 'moderate-snow':
                 conditionCodeLt = 'sniegas';
                 break;
-                
+
               case 'heavy-snow':
                 conditionCodeLt = 'smarkus sniegas';
                 break;

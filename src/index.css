@@ -3,7 +3,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #e1e1e1;
+  /* background: #e1e1e1; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +14,18 @@ html, body {
 
 #weatherApp {
   display: flex;
+}
+
+.preloader {
+  background-image: url(./preloader/2.gif);
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  transform: translateX(-50%);
+
 }
 
 h2 {

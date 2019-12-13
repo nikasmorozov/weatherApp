@@ -31,26 +31,53 @@ h4 {
 .locationsCard {
   display: flex;
   flex-direction: column;
+  padding: 0;
 }
 
 .weatherCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 10%;
-  height: 70vh;
   width: 70vw;
   box-sizing: border-box;
 }
 
+input, button {
+  background: #ffecb3;
+  border: none;
+  color: grey;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+input {
+  margin-top: 50px;
+}
+
+input:focus {
+  outline: none;
+  width: 100%;
+}
+
+button:focus {
+  background-color: #cbba83;
+  outline: none;
+  color: white;
+}
+
 .AboveZero {
   background: #cbba83;
-  border-top: 100px solid #ffecb3;
+  border-top: 70px solid #ffecb3;
 }
 
 .BelowZero {
   background: #81b9bf;
-  border-top: 100px solid #b2ebf2;
+  border-top: 70px solid #b2ebf2;
 }
 
 .temperatureData:nth-of-type(1) {
@@ -65,6 +92,7 @@ h4 {
   background-size: contain;
   background-repeat: no-repeat;
   fill: white;
+  margin-left: 20px;
 }
 
 .temperatureData:nth-of-type(1) .conditionSymbol{

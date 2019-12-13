@@ -1,11 +1,14 @@
 const { createDomElement, addToDom } = require('./utilities');
-const cityToSearch = document.getElementById('cityToSearch');
+const cityToSearch = createDomElement('input', { id: 'cityToSearch' });
+cityToSearch.placeholder = 'vietovės paieška';
 
 let city = cityToSearch;
 let cityData = null;
+let weatherCard = null;
+
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
-cityToSearch.addEventListener('input', filterCities)
+cityToSearch.addEventListener('input', filterCities);
 
 addEventListener('keydown', function (e) {
   if (e.keyCode === 13) {
@@ -43,17 +46,17 @@ function filterCities() {
 
   locationsCard.innerHTML = null;
 
-  for (i = 0; i < 20; i++) {
-    
-    addToDom(weatherApp, locationsCard);
+  for (i = 0; i < 10; i++) {
+
+    addToDom(weatherCard, locationsCard);
 
     const locationToRender = createDomElement('button', {
       textContent: filteredCities[i].code
     });
 
     locationToRender.id = filteredCities[i].code;
-    
-    locationToRender.addEventListener('click', function() {
+
+    locationToRender.addEventListener('click', function () {
       changeCity(locationToRender.id);
     });
     addToDom(locationsCard, locationToRender);
@@ -62,13 +65,13 @@ function filterCities() {
   };
 };
 
-function changeCity(city = 'vilnius-antakalnis') {
+function changeCity(city = 'vilnius') {
   // kaip is-return-inti linkToRender reiksme is funkcijos?
   let linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
   console.log(linkToFetch);
 
-  function getWeatherData() {
+  function renderWeatherData() {
 
     fetch(linkToFetch)
       .then((response) => response.json())
@@ -77,8 +80,6 @@ function changeCity(city = 'vilnius-antakalnis') {
           const app = document.getElementById('weatherApp');
 
           app.innerHTML = null;
-
-          let weatherCard = null;
 
           weatherCard = createDomElement('div', {
             className: 'weatherCard'
@@ -98,23 +99,77 @@ function changeCity(city = 'vilnius-antakalnis') {
           for (i = 2; i < 6; i++) {
             console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
-            switch (i-2) {
+            switch (i - 2) {
               case 0:
                 timeName = 'dabar: ';
                 break;
               case 1:
-                timeName = 'in one hour: ';
+                timeName = 'po valandos: ';
                 break;
               case 2:
-                timeName = 'in two hours: ';
+                timeName = 'po dviejų valandų: ';
                 break;
               case 3:
-                timeName = 'in three hours: ';
+                timeName = 'po trijų valandų: ';
                 break;
 
             };
 
-            const timeStamp = createDomElement('h4', { innerHTML: timeName + data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#176;' + ' ' + data.forecastTimestamps[i].conditionCode + '  ' });
+            switch (data.forecastTimestamps[i].conditionCode) {
+              case 'clear':
+                conditionCodeLt = 'giedra';
+                break;
+
+              case 'isolated-clouds':
+                conditionCodeLt = 'mažai debesuota';
+                break;
+
+              case 'scattered-clouds':
+                conditionCodeLt = 'debesuota su pragiedruliais';
+                break;
+
+              case 'overcast':
+                conditionCodeLt = 'debesuota';
+                break;
+
+              case 'light-rain':
+                conditionCodeLt = 'nedidelis lietus';
+                break;
+
+              case 'moderate-rain':
+                conditionCodeLt = 'lietus';
+                break;
+
+              case 'heavy-rain':
+                conditionCodeLt = 'smarkus lietus';
+                break;
+
+              case 'sleet':
+                conditionCodeLt = 'šlapdriba';
+                break;
+
+              case 'light-snow':
+                conditionCodeLt = 'nedidelis sniegas';
+                break;
+
+              case 'moderate-snow':
+                conditionCodeLt = 'sniegas';
+                break;
+                
+              case 'heavy-snow':
+                conditionCodeLt = 'smarkus sniegas';
+                break;
+
+              case 'fog':
+                conditionCodeLt = 'rūkas';
+                break;
+
+              case 'na':
+                conditionCodeLt = 'oro sąlygos nenustatytos';
+                break;
+            };
+
+            const timeStamp = createDomElement('h4', { innerHTML: timeName + data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#176;' + ' ' + conditionCodeLt });
 
             timeStamp.classList.add('temperatureData');
             addToDom(weatherCard, timeStamp);
@@ -126,9 +181,11 @@ function changeCity(city = 'vilnius-antakalnis') {
             addToDom(timeStamp, weatherIcon);
           };
 
-          console.log(data)
+          console.log(data);
 
-          document.getElementById('searchCities').value = null;
+          addToDom(weatherCard, cityToSearch);
+
+          cityToSearch.value = null;
         }
       )
       .catch(
@@ -138,7 +195,7 @@ function changeCity(city = 'vilnius-antakalnis') {
       );
   };
 
-  getWeatherData();
+  renderWeatherData();
 };
 
 renderCities();

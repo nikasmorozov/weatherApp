@@ -27,7 +27,7 @@ function renderCities() {
     )
     .catch(
       function (e) {
-        console.log(e);
+        alert('failed to fetch locations list')
       }
     );
 };
@@ -99,27 +99,11 @@ function changeCity(city = 'vilnius') {
 
           addToDom(app, weatherCard);
 
-          const cityName = createDomElement('h2', { textContent: data.place.name });
+          const cityName = createDomElement('h3', { textContent: data.place.name });
           addToDom(weatherCard, cityName);
 
           for (i = 2; i < 6; i++) {
             console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
-
-            switch (i - 2) {
-              case 0:
-                timeName = 'dabar: ';
-                break;
-              case 1:
-                timeName = 'po valandos: ';
-                break;
-              case 2:
-                timeName = 'po dviejų valandų: ';
-                break;
-              case 3:
-                timeName = 'po trijų valandų: ';
-                break;
-
-            };
 
             switch (data.forecastTimestamps[i].conditionCode) {
               case 'clear':
@@ -175,12 +159,20 @@ function changeCity(city = 'vilnius') {
                 break;
             };
 
-            const temperature = data.forecastTimestamps[i].airTemperature.toFixed(0);
-            
-            const timeStamp = createDomElement('h4', { innerHTML: timeName + temperature + '&#176;' + ' ' + conditionCodeLt });
+            const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 13) + ' val.' });
+            utcTime.classList.add('utcTime')
+            addToDom(weatherCard, utcTime);
 
-            timeStamp.classList.add('temperatureData');
+            const timeStamp = createDomElement('div', {
+              className: 'timeStamp'
+            });
             addToDom(weatherCard, timeStamp);
+
+            const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#x2103;'});
+            addToDom(timeStamp, temperature);
+
+            const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
+            addToDom(timeStamp, weatherConditions);
 
             const weatherIcon = createDomElement('div', {
               className: 'conditionSymbol'
@@ -198,7 +190,7 @@ function changeCity(city = 'vilnius') {
       )
       .catch(
         function (e) {
-          console.log(e);
+          alert('failed to fetch weatcher data');
         }
       );
   };

@@ -28,16 +28,45 @@ html, body {
 
 }
 
-h2 {
-  font-size: 1.5rem;
+h2, h3, h4, p {
+  display: inline-block;
+  font-weight: 600;
   margin: 0;
-  font-weight: 400;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 18px;
+  margin: 0 20px 0 0;
+}
+
+h3 {
+  font-size: 30px;
 }
 
 h4 {
-  font-size: 1rem;
-  margin: 0;
+  font-size: 18px;
   text-transform: uppercase;
+}
+
+.timeStamp:nth-of-type(1) h2 {
+  margin-bottom: 30px;
+  font-size: 42px;
+}
+
+.timeStamp:nth-of-type(1) h4 {
+  font-size: 24px;
+}
+
+.utcTime {
+  margin: 20px 0 -20px 0;
+  color: grey;
+  font-size: 16px;
+}
+
+.utcTime:nth-of-type(1) {
+  margin: 20px 0 -40px 0;
+  font-size: 20px;
 }
 
 .locationsCard {
@@ -50,8 +79,8 @@ h4 {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 10%;
+  /* justify-content: center; */
+  padding: 3% 10% 5% 10%;
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -70,6 +99,7 @@ input, button {
 
 input {
   margin-top: 50px;
+  border: 2px solid white;
 }
 
 input:focus {
@@ -93,24 +123,20 @@ button:focus {
   border-top: 70px solid #b2ebf2;
 }
 
-.temperatureData:nth-of-type(1) {
-  font-size: 2rem;
-}
-
 .conditionSymbol {
-  width: 30px;
-  height: 30px;
-  display: inline-block;
-  background-position: center;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  background-position: bottom;
   background-size: contain;
   background-repeat: no-repeat;
   fill: white;
   margin-left: 20px;
 }
 
-.temperatureData:nth-of-type(1) .conditionSymbol{
-  width: 60px;
-  height: 60px;
+.timeStamp:nth-of-type(1) .conditionSymbol{
+  width: 80px;
+  height: 80px;
 }
 
 .clear {

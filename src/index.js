@@ -50,7 +50,7 @@ function filterCities() {
   for (i = 0; i < 10; i++) {
 
     addToDom(weatherCard, locationsCard);
-    const locationToRender = createDomElement('button', { });
+    const locationToRender = createDomElement('button', {});
 
     if (filteredCities[i] != undefined) {
       locationToRender.textContent = filteredCities[i].code;
@@ -92,16 +92,18 @@ function renderWeatherData(city = 'vilnius') {
           weatherCard.classList.add('AboveZero');
         } else {
           weatherCard.classList.add('BelowZero');
-        }
+        };
 
         addToDom(app, weatherCard);
 
         addToDom(weatherCard, cityToSearch);
 
+        const nextHoursWeather = createDomElement('div', { className: 'nextHoursWeather' });
+
         const cityName = createDomElement('h3', { textContent: data.place.name });
         addToDom(weatherCard, cityName);
 
-        for (i = 2; i <=2 ; i++) {
+        for (i = 2; i <= 7; i++) {
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
           switch (data.forecastTimestamps[i].conditionCode) {
@@ -158,30 +160,57 @@ function renderWeatherData(city = 'vilnius') {
               break;
           };
 
-         
-
           const timeStamp = createDomElement('div', {
             className: 'timeStamp'
           });
-          addToDom(weatherCard, timeStamp);
 
-          const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 13) + ' val.' });
+          const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 16) });
           utcTime.classList.add('utcTime')
-          addToDom(timeStamp, utcTime);
-          
-          const weatherIcon = createDomElement('div', {
-            className: 'conditionSymbol'
-          });
+
+          const weatherIcon = createDomElement('div', { });
+          weatherIcon.classList.add('weatherIcon')
           weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
+
+          const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&deg;' });
+          temperature.classList.add('temperature')
+
+          addToDom(timeStamp, utcTime);
+
           addToDom(timeStamp, weatherIcon);
 
-          const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&deg;'});
           addToDom(timeStamp, temperature);
 
           if (i == 2) {
             const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
-          addToDom(timeStamp, weatherConditions);
-          }
+
+            addToDom(weatherCard, timeStamp);
+
+            utcTime.classList.add('utcTime-big');
+            addToDom(timeStamp, utcTime);
+
+            weatherIcon.classList.add('weatherIcon-big');
+            addToDom(timeStamp, weatherIcon);
+
+            temperature.classList.add('temperature-big')
+            addToDom(timeStamp, temperature);
+
+            weatherConditions.classList.add('weatherConditions-big')
+            addToDom(timeStamp, weatherConditions);
+          };
+
+          addToDom(weatherCard, nextHoursWeather);
+
+          if (i > 2) {
+            timeStamp.classList.add('timeStamp-small');
+
+            addToDom(nextHoursWeather, timeStamp);
+
+            addToDom(timeStamp, weatherIcon);
+
+            addToDom(timeStamp, temperature);
+
+            addToDom(timeStamp, utcTime);
+          };
         };
 
         console.log(data);

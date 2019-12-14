@@ -28,16 +28,60 @@ html, body {
 
 }
 
+.locationsCard {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  transform: translateY(-680px);
+}
+
+.weatherCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 3% 10% 5% 10%;
+  /* width: 450px;
+  height: 800px; */
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.AboveZero {
+  background: #d1ac32;
+  border-top: 40px solid #ffe48a;
+}
+
+.BelowZero {
+  background: #81b9bf;
+  border-top: 40px solid #b2ebf2;
+}
+
+.nextHoursWeather {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
 h2, h3, h4, p {
   margin: 0;
   line-height: 1;
   letter-spacing: 3px;
   font-weight: 200;
+  text-transform: uppercase;
 }
 
-h2 {
-  font-size: 18px;
+.temperature {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.temperature-big {
   margin: 0 20px 0 0;
+  transform: translateX(40px);
+  margin-bottom: 30px;
+  font-size: 120px;
 }
 
 h3 {
@@ -45,59 +89,26 @@ h3 {
   margin-top: 30px;
 }
 
-h4 {
-  font-size: 18px;
-  text-transform: uppercase;
-}
-
-.timeStamp:nth-of-type(1) h2 {
-  transform: translateX(40px);
-  margin-bottom: 30px;
-  font-size: 120px;
-}
-
-.timeStamp:nth-of-type(1) h4 {
-  font-size: 18px;
+.weatherConditions-big {
+  font-size: 26px;
 }
 
 .utcTime {
-  color: grey;
-  font-size: 16px;
+  color: rgb(99, 99, 99);
+  font-size: 14px;
 }
 
-.locationsCard {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  transform: translateY(-500px);
-}
-
-.weatherCard {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  padding: 3% 10% 5% 10%;
-  width: 450px;
-  height: 800px;
-  box-sizing: border-box;
-  text-align: center;
-}
-
-.AboveZero {
-  background: #cbba83;
-  border-top: 50px solid #ffecb3;
-}
-
-.BelowZero {
-  background: #81b9bf;
-  border-top: 50px solid #b2ebf2;
+.utcTime-big {
+  color: rgb(99, 99, 99);
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 20px;
 }
 
 input, button {
-  background: #ffecb3;
+  background: #ffe48a;
   border: none;
-  color: grey;
+  color: rgb(99, 99, 99);
   font-size: 14px;
   text-transform: uppercase;
   text-align: center;
@@ -110,7 +121,7 @@ button {
 }
 
 input {
-  margin-top: 25px;
+  margin-top: 5px;
   border: 2px solid white;
 }
 
@@ -120,12 +131,12 @@ input:focus {
 }
 
 button:focus {
-  background-color: #cbba83;
+  background-color: #d1ac32;
   outline: none;
   color: white;
 }
 
-.conditionSymbol {
+.weatherIcon {
   width: 40px;
   height: 40px;
   display: inline-flex;
@@ -133,10 +144,10 @@ button:focus {
   background-size: contain;
   background-repeat: no-repeat;
   fill: white;
-  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
-.timeStamp:nth-of-type(1) .conditionSymbol{
+.weatherIcon-big{
   margin-bottom: 30px;
   width: 200px;
   height: 200px;

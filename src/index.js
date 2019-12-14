@@ -96,10 +96,12 @@ function renderWeatherData(city = 'vilnius') {
 
         addToDom(app, weatherCard);
 
+        addToDom(weatherCard, cityToSearch);
+
         const cityName = createDomElement('h3', { textContent: data.place.name });
         addToDom(weatherCard, cityName);
 
-        for (i = 2; i < 6; i++) {
+        for (i = 2; i <=2 ; i++) {
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
           switch (data.forecastTimestamps[i].conditionCode) {
@@ -156,31 +158,33 @@ function renderWeatherData(city = 'vilnius') {
               break;
           };
 
-          const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 13) + ' val.' });
-          utcTime.classList.add('utcTime')
-          addToDom(weatherCard, utcTime);
+         
 
           const timeStamp = createDomElement('div', {
             className: 'timeStamp'
           });
           addToDom(weatherCard, timeStamp);
 
-          const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#x2103;'});
-          addToDom(timeStamp, temperature);
-
-          const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
-          addToDom(timeStamp, weatherConditions);
-
+          const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 13) + ' val.' });
+          utcTime.classList.add('utcTime')
+          addToDom(timeStamp, utcTime);
+          
           const weatherIcon = createDomElement('div', {
             className: 'conditionSymbol'
           });
           weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
           addToDom(timeStamp, weatherIcon);
+
+          const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&deg;'});
+          addToDom(timeStamp, temperature);
+
+          if (i == 2) {
+            const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
+          addToDom(timeStamp, weatherConditions);
+          }
         };
 
         console.log(data);
-
-        addToDom(weatherCard, cityToSearch);
 
         cityToSearch.value = null;
       }

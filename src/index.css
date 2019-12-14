@@ -29,10 +29,10 @@ html, body {
 }
 
 h2, h3, h4, p {
-  display: inline-block;
-  font-weight: 600;
   margin: 0;
   line-height: 1;
+  letter-spacing: 3px;
+  font-weight: 200;
 }
 
 h2 {
@@ -41,7 +41,8 @@ h2 {
 }
 
 h3 {
-  font-size: 30px;
+  font-size: 48px;
+  margin-top: 30px;
 }
 
 h4 {
@@ -50,29 +51,25 @@ h4 {
 }
 
 .timeStamp:nth-of-type(1) h2 {
+  transform: translateX(40px);
   margin-bottom: 30px;
-  font-size: 42px;
+  font-size: 120px;
 }
 
 .timeStamp:nth-of-type(1) h4 {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .utcTime {
-  margin: 20px 0 -20px 0;
   color: grey;
   font-size: 16px;
-}
-
-.utcTime:nth-of-type(1) {
-  margin: 20px 0 -40px 0;
-  font-size: 20px;
 }
 
 .locationsCard {
   display: flex;
   flex-direction: column;
   padding: 0;
+  transform: translateY(-500px);
 }
 
 .weatherCard {
@@ -81,24 +78,39 @@ h4 {
   flex-direction: column;
   /* justify-content: center; */
   padding: 3% 10% 5% 10%;
-  width: 100vw;
-  height: 100vh;
+  width: 450px;
+  height: 800px;
   box-sizing: border-box;
+  text-align: center;
+}
+
+.AboveZero {
+  background: #cbba83;
+  border-top: 50px solid #ffecb3;
+}
+
+.BelowZero {
+  background: #81b9bf;
+  border-top: 50px solid #b2ebf2;
 }
 
 input, button {
   background: #ffecb3;
   border: none;
   color: grey;
-  font-size: 1rem;
+  font-size: 14px;
   text-transform: uppercase;
-  text-align: left;
+  text-align: center;
   padding: 5px;
   box-sizing: border-box;
 }
 
+button {
+  text-align: left;
+}
+
 input {
-  margin-top: 50px;
+  margin-top: 25px;
   border: 2px solid white;
 }
 
@@ -113,16 +125,6 @@ button:focus {
   color: white;
 }
 
-.AboveZero {
-  background: #cbba83;
-  border-top: 70px solid #ffecb3;
-}
-
-.BelowZero {
-  background: #81b9bf;
-  border-top: 70px solid #b2ebf2;
-}
-
 .conditionSymbol {
   width: 40px;
   height: 40px;
@@ -135,8 +137,9 @@ button:focus {
 }
 
 .timeStamp:nth-of-type(1) .conditionSymbol{
-  width: 80px;
-  height: 80px;
+  margin-bottom: 30px;
+  width: 200px;
+  height: 200px;
 }
 
 .clear {

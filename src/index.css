@@ -21,18 +21,25 @@ html, body {
   width: 64px;
   height: 64px;
   position: absolute;
-  left: 50%;
   top: 50%;
+  left: 50%;
   transform: translateY(-50%);
   transform: translateX(-50%);
 
+}
+
+.searchGroup {
+  position: relative;
 }
 
 .locationsCard {
   display: flex;
   flex-direction: column;
   padding: 0;
-  transform: translateY(-680px);
+  margin: 0;
+  position: absolute;
+  width: 80%;
+  margin-top: 10px;
 }
 
 .weatherCard {
@@ -78,9 +85,7 @@ h2, h3, h4, p {
 }
 
 .temperature-big {
-  margin: 0 20px 0 0;
-  transform: translateX(40px);
-  margin-bottom: 30px;
+  transform: translateX(30px);
   font-size: 120px;
 }
 
@@ -114,6 +119,7 @@ input, button {
   text-align: center;
   padding: 5px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 button {
@@ -127,7 +133,6 @@ input {
 
 input:focus {
   outline: none;
-  width: 100%;
 }
 
 button:focus {

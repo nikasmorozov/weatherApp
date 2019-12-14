@@ -1,6 +1,7 @@
 const { createDomElement, addToDom } = require('./utilities');
+const searchGroup = createDomElement('div', { id: 'searchGroup' });
 const cityToSearch = createDomElement('input', { id: 'cityToSearch' });
-cityToSearch.placeholder = 'vietovės paieška';
+cityToSearch.placeholder = 'paieška';
 
 let city = cityToSearch;
 let cityData = null;
@@ -37,8 +38,6 @@ function filterCities() {
 
   console.clear();
 
-  addToDom(weatherApp, locationsCard);
-
   const filteredCities = cityData.filter(function (value) {
     if (value.code.includes(cityToSearch.value)) {
       return true;
@@ -46,22 +45,23 @@ function filterCities() {
   });
 
   locationsCard.innerHTML = null;
+  addToDom(searchGroup, locationsCard);
+
 
   for (i = 0; i < 10; i++) {
 
-    addToDom(weatherCard, locationsCard);
     const locationToRender = createDomElement('button', {});
 
     if (filteredCities[i] != undefined) {
       locationToRender.textContent = filteredCities[i].code;
       locationToRender.id = filteredCities[i].code;
-      console.log(filteredCities[i].code)
+      console.log(filteredCities[i].code);
+      addToDom(locationsCard, locationToRender)
     };
 
     locationToRender.addEventListener('click', function () {
       renderWeatherData(locationToRender.id);
     });
-    addToDom(locationsCard, locationToRender)
   };
 };
 
@@ -90,13 +90,18 @@ function renderWeatherData(city = 'vilnius') {
 
         if (data.forecastTimestamps[2].airTemperature > 0) {
           weatherCard.classList.add('AboveZero');
+          cityToSearch.style.backgroundColor = '#ffe48a';
         } else {
           weatherCard.classList.add('BelowZero');
+          cityToSearch.style.backgroundColor = '#b2ebf2';
+
         };
 
         addToDom(app, weatherCard);
 
-        addToDom(weatherCard, cityToSearch);
+        addToDom(searchGroup, cityToSearch);
+
+        addToDom(weatherCard, searchGroup);
 
         const nextHoursWeather = createDomElement('div', { className: 'nextHoursWeather' });
 
@@ -216,6 +221,8 @@ function renderWeatherData(city = 'vilnius') {
         console.log(data);
 
         cityToSearch.value = null;
+
+        locationsCard.innerHTML = null;
       }
     )
     .catch(

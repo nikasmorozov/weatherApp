@@ -4,6 +4,7 @@ cityToSearch.placeholder = 'vietovės paieška';
 
 let city = cityToSearch;
 let cityData = null;
+let linkToFetch = null;
 let weatherCard = null;
 
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
@@ -12,7 +13,7 @@ cityToSearch.addEventListener('input', filterCities);
 
 addEventListener('keydown', function (e) {
   if (e.keyCode === 13) {
-    changeCity(city.value);
+    renderWeatherData(city.value);
   }
 });
 
@@ -49,155 +50,148 @@ function filterCities() {
   for (i = 0; i < 10; i++) {
 
     addToDom(weatherCard, locationsCard);
+    const locationToRender = createDomElement('button', { });
 
-    const locationToRender = createDomElement('button', {
-      textContent: filteredCities[i].code
-    });
-
-    locationToRender.id = filteredCities[i].code;
+    if (filteredCities[i] != undefined) {
+      locationToRender.textContent = filteredCities[i].code;
+      locationToRender.id = filteredCities[i].code;
+      console.log(filteredCities[i].code)
+    };
 
     locationToRender.addEventListener('click', function () {
-      changeCity(locationToRender.id);
+      renderWeatherData(locationToRender.id);
     });
-    addToDom(locationsCard, locationToRender);
-
-    console.log(filteredCities[i].code)
+    addToDom(locationsCard, locationToRender)
   };
 };
 
-function changeCity(city = 'vilnius') {
-  // kaip is-return-inti linkToRender reiksme is funkcijos?
-  let linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
+function renderWeatherData(city = 'vilnius') {
+  linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
   console.log(linkToFetch);
 
-  function renderWeatherData() {
+  const app = document.getElementById('weatherApp');
 
-    const app = document.getElementById('weatherApp');
+  const preloader = createDomElement('div', {
+    className: 'preloader'
+  });
+  addToDom(weatherApp, preloader);
 
-    const preloader = createDomElement('div', {
-      className: 'preloader'
-    });
-    addToDom(weatherApp, preloader);
+  fetch(linkToFetch)
+    .then((response) => response.json())
+    .then(
+      function (data) {
 
-    fetch(linkToFetch)
-      .then((response) => response.json())
-      .then(
-        function (data) {
+        app.innerHTML = null;
 
-          app.innerHTML = null;
+        weatherCard = createDomElement('div', {
+          className: 'weatherCard'
+        })
 
-          weatherCard = createDomElement('div', {
-            className: 'weatherCard'
-          })
+        if (data.forecastTimestamps[2].airTemperature > 0) {
+          weatherCard.classList.add('AboveZero');
+        } else {
+          weatherCard.classList.add('BelowZero');
+        }
 
-          if (data.forecastTimestamps[2].airTemperature > 0) {
-            weatherCard.classList.add('AboveZero');
-          } else {
-            weatherCard.classList.add('BelowZero');
-          }
+        addToDom(app, weatherCard);
 
-          addToDom(app, weatherCard);
+        const cityName = createDomElement('h3', { textContent: data.place.name });
+        addToDom(weatherCard, cityName);
 
-          const cityName = createDomElement('h3', { textContent: data.place.name });
-          addToDom(weatherCard, cityName);
+        for (i = 2; i < 6; i++) {
+          console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
-          for (i = 2; i < 6; i++) {
-            console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
+          switch (data.forecastTimestamps[i].conditionCode) {
+            case 'clear':
+              conditionCodeLt = 'giedra';
+              break;
 
-            switch (data.forecastTimestamps[i].conditionCode) {
-              case 'clear':
-                conditionCodeLt = 'giedra';
-                break;
+            case 'isolated-clouds':
+              conditionCodeLt = 'mažai debesuota';
+              break;
 
-              case 'isolated-clouds':
-                conditionCodeLt = 'mažai debesuota';
-                break;
+            case 'scattered-clouds':
+              conditionCodeLt = 'debesuota su pragiedruliais';
+              break;
 
-              case 'scattered-clouds':
-                conditionCodeLt = 'debesuota su pragiedruliais';
-                break;
+            case 'overcast':
+              conditionCodeLt = 'debesuota';
+              break;
 
-              case 'overcast':
-                conditionCodeLt = 'debesuota';
-                break;
+            case 'light-rain':
+              conditionCodeLt = 'nedidelis lietus';
+              break;
 
-              case 'light-rain':
-                conditionCodeLt = 'nedidelis lietus';
-                break;
+            case 'moderate-rain':
+              conditionCodeLt = 'lietus';
+              break;
 
-              case 'moderate-rain':
-                conditionCodeLt = 'lietus';
-                break;
+            case 'heavy-rain':
+              conditionCodeLt = 'smarkus lietus';
+              break;
 
-              case 'heavy-rain':
-                conditionCodeLt = 'smarkus lietus';
-                break;
+            case 'sleet':
+              conditionCodeLt = 'šlapdriba';
+              break;
 
-              case 'sleet':
-                conditionCodeLt = 'šlapdriba';
-                break;
+            case 'light-snow':
+              conditionCodeLt = 'nedidelis sniegas';
+              break;
 
-              case 'light-snow':
-                conditionCodeLt = 'nedidelis sniegas';
-                break;
+            case 'moderate-snow':
+              conditionCodeLt = 'sniegas';
+              break;
 
-              case 'moderate-snow':
-                conditionCodeLt = 'sniegas';
-                break;
+            case 'heavy-snow':
+              conditionCodeLt = 'smarkus sniegas';
+              break;
 
-              case 'heavy-snow':
-                conditionCodeLt = 'smarkus sniegas';
-                break;
+            case 'fog':
+              conditionCodeLt = 'rūkas';
+              break;
 
-              case 'fog':
-                conditionCodeLt = 'rūkas';
-                break;
-
-              case 'na':
-                conditionCodeLt = 'oro sąlygos nenustatytos';
-                break;
-            };
-
-            const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 13) + ' val.' });
-            utcTime.classList.add('utcTime')
-            addToDom(weatherCard, utcTime);
-
-            const timeStamp = createDomElement('div', {
-              className: 'timeStamp'
-            });
-            addToDom(weatherCard, timeStamp);
-
-            const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#x2103;'});
-            addToDom(timeStamp, temperature);
-
-            const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
-            addToDom(timeStamp, weatherConditions);
-
-            const weatherIcon = createDomElement('div', {
-              className: 'conditionSymbol'
-            });
-            weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
-            addToDom(timeStamp, weatherIcon);
+            case 'na':
+              conditionCodeLt = 'oro sąlygos nenustatytos';
+              break;
           };
 
-          console.log(data);
+          const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 13) + ' val.' });
+          utcTime.classList.add('utcTime')
+          addToDom(weatherCard, utcTime);
 
-          addToDom(weatherCard, cityToSearch);
+          const timeStamp = createDomElement('div', {
+            className: 'timeStamp'
+          });
+          addToDom(weatherCard, timeStamp);
 
-          cityToSearch.value = null;
-        }
-      )
-      .catch(
-        function (e) {
-          alert('failed to fetch weatcher data');
-        }
-      );
-  };
+          const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&#x2103;'});
+          addToDom(timeStamp, temperature);
 
-  renderWeatherData();
+          const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
+          addToDom(timeStamp, weatherConditions);
+
+          const weatherIcon = createDomElement('div', {
+            className: 'conditionSymbol'
+          });
+          weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
+          addToDom(timeStamp, weatherIcon);
+        };
+
+        console.log(data);
+
+        addToDom(weatherCard, cityToSearch);
+
+        cityToSearch.value = null;
+      }
+    )
+    .catch(
+      function (e) {
+        alert('failed to fetch weatcher data');
+      }
+    );
 };
 
 renderCities();
 
-changeCity();
+renderWeatherData();

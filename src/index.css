@@ -188,17 +188,22 @@ button:focus {
 
   h3 {
     margin-top: 20px;
+    font-size: 34px;
   }
 
   .weatherIcon-big{
     margin-bottom: 20px;
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
   }
 
   .temperature-big {
     transform: translateX(20px);
     font-size: 80px;
+  }
+
+  .weatherConditions-big {
+    font-size: 20px;
   }
 
   .nextHoursWeather {
@@ -213,5 +218,9 @@ button:focus {
 
   .utcTime-big {
     margin-bottom: 20px;
+  }
+
+  .temperature {
+    transform: translateX(7px);
   }
 }

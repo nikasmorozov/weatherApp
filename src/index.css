@@ -47,7 +47,7 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 3% 10% 5% 10%;
-
+  justify-content: center;
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -184,15 +184,23 @@ button:focus {
 }
 
 @media screen and (max-width: 768px){
+  .weatherIcon {
+    width: 35px;
+    height: 35px;
+  }
+
   .weatherIcon-big{
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     width: 120px;
     height: 120px;
-    background-color: red;
   }
 
   .temperature-big {
     transform: translateX(20px);
     font-size: 80px;
+  }
+
+  .nextHoursWeather {
+    margin-top: 20px;
   }
 }

@@ -3,6 +3,7 @@ const searchGroup = createDomElement('div', { id: 'searchGroup' });
 const cityToSearch = createDomElement('input', { id: 'cityToSearch' });
 cityToSearch.placeholder = 'paieška';
 
+let isTemperatureAboveZero = null;
 let city = cityToSearch;
 let cityData = null;
 let linkToFetch = null;
@@ -53,10 +54,16 @@ function filterCities() {
     const locationToRender = createDomElement('button', {});
 
     if (filteredCities[i] != undefined) {
-      locationToRender.textContent = filteredCities[i].code;
+      locationToRender.textContent = filteredCities[i].name;
       locationToRender.id = filteredCities[i].code;
       console.log(filteredCities[i].code);
       addToDom(locationsCard, locationToRender)
+    };
+
+    if (isTemperatureAboveZero) {
+      locationToRender.style.backgroundColor = '#ffe48a';
+    } else {
+      locationToRender.style.backgroundColor = '#b2ebf2';
     };
 
     locationToRender.addEventListener('click', function () {
@@ -81,20 +88,22 @@ function renderWeatherData(city = 'vilnius') {
     .then((response) => response.json())
     .then(
       function (data) {
+        isTemperatureAboveZero = (data.forecastTimestamps[2].airTemperature > 0);
+
+        console.log(isTemperatureAboveZero)
 
         app.innerHTML = null;
 
         weatherCard = createDomElement('div', {
           className: 'weatherCard'
-        })
+        });
 
-        if (data.forecastTimestamps[2].airTemperature > 0) {
+        if (isTemperatureAboveZero) {
           weatherCard.classList.add('AboveZero');
           cityToSearch.style.backgroundColor = '#ffe48a';
         } else {
           weatherCard.classList.add('BelowZero');
           cityToSearch.style.backgroundColor = '#b2ebf2';
-
         };
 
         addToDom(app, weatherCard);
@@ -172,7 +181,7 @@ function renderWeatherData(city = 'vilnius') {
           const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 16) });
           utcTime.classList.add('utcTime')
 
-          const weatherIcon = createDomElement('div', { });
+          const weatherIcon = createDomElement('div', {});
           weatherIcon.classList.add('weatherIcon')
           weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
 
@@ -227,7 +236,7 @@ function renderWeatherData(city = 'vilnius') {
     )
     .catch(
       function (e) {
-        alert('failed to fetch weatcher data');
+        alert('failed to fetch weather data');
       }
     );
 };

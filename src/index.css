@@ -47,8 +47,7 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 3% 10% 5% 10%;
-  /* width: 450px;
-  height: 800px; */
+
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
@@ -57,12 +56,10 @@ html, body {
 
 .AboveZero {
   background: #d1ac32;
-  border-top: 40px solid #ffe48a;
 }
 
 .BelowZero {
   background: #81b9bf;
-  border-top: 40px solid #b2ebf2;
 }
 
 .nextHoursWeather {
@@ -111,7 +108,7 @@ h3 {
 }
 
 input, button {
-  background: #ffe48a;
+  /* background: #ffe48a; */
   border: none;
   color: rgb(99, 99, 99);
   font-size: 14px;

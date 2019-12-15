@@ -11,7 +11,7 @@ let weatherCard = null;
 
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
-cityToSearch.addEventListener('input', filterCities);
+cityToSearch.addEventListener('change', filterCities);
 
 addEventListener('keydown', function (e) {
   if (e.keyCode === 13) {
@@ -40,7 +40,7 @@ function filterCities() {
   console.clear();
 
   const filteredCities = cityData.filter(function (value) {
-    if (value.code.includes(cityToSearch.value)) {
+    if (value.code.includes(cityToSearch.value) && cityToSearch.value) {
       return true;
     }
   });
@@ -61,9 +61,10 @@ function filterCities() {
     };
 
     if (isTemperatureAboveZero) {
-      locationToRender.style.backgroundColor = '#ffe48a';
+      locationToRender.className = 'buttonBackgroundWarm';
     } else {
-      locationToRender.style.backgroundColor = '#b2ebf2';
+      locationToRender.className = 'buttonBackgroundCold';
+
     };
 
     locationToRender.addEventListener('click', function () {
@@ -88,7 +89,7 @@ function renderWeatherData(city = 'vilnius') {
     .then((response) => response.json())
     .then(
       function (data) {
-        isTemperatureAboveZero = (data.forecastTimestamps[2].airTemperature > 0);
+        isTemperatureAboveZero = data.forecastTimestamps[2].airTemperature < 0;
 
         console.log(isTemperatureAboveZero)
 

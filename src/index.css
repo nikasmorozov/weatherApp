@@ -122,7 +122,6 @@ button {
 }
 
 input {
-  margin-top: 5px;
   border: 2px solid white;
 }
 
@@ -185,6 +184,10 @@ button:focus {
   .weatherIcon {
     width: 35px;
     height: 35px;
+  }
+
+  h3 {
+    margin-top: 20px;
   }
 
   .weatherIcon-big{

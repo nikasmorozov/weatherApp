@@ -127,7 +127,7 @@ input {
 }
 
 input::placeholder {
-  letter-spacing: 9px;
+  letter-spacing: 2px;
 }
 
 input:focus {
@@ -201,6 +201,13 @@ button:focus {
 }
 
 @media screen and (max-width: 768px){
+  .weatherCard {
+
+    padding: 3% 7% 3% 7%;
+    width: 100vw;
+    height: 100vh;
+  }
+
   .weatherIcon {
     width: 35px;
     height: 35px;

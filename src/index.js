@@ -11,7 +11,7 @@ let weatherCard = null;
 
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
-cityToSearch.addEventListener('change', filterCities);
+cityToSearch.addEventListener('keyup', filterCities);
 
 addEventListener('keydown', function (e) {
   if (e.keyCode === 13) {

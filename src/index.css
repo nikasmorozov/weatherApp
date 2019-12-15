@@ -203,6 +203,7 @@ button:focus {
 
   .nextHoursWeather {
     margin-top: 35px;
+    margin-bottom: 60px;
   }
 
   .timeStamp-small:nth-of-type(6),

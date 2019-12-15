@@ -134,6 +134,16 @@ input:focus {
   outline: none;
 }
 
+input:focus::-webkit-input-placeholder{
+  color: transparent!important;
+}
+input:focus::-moz-placeholder{
+  color: transparent!important;
+}
+input:focus:-moz-placeholder{
+  color: transparent!important;
+}
+
 button:focus {
   outline: none;
   color: white;
@@ -202,10 +212,7 @@ button:focus {
 
 @media screen and (max-width: 768px){
   .weatherCard {
-
     padding: 3% 7% 3% 7%;
-    width: 100vw;
-    height: 100vh;
   }
 
   .weatherIcon {
@@ -245,5 +252,9 @@ button:focus {
 
   .utcTime-big {
     margin-bottom: 20px;
+  }
+
+  .locationsCard {
+    width: 86%;
   }
 }

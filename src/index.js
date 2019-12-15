@@ -89,7 +89,7 @@ function renderWeatherData(city = 'vilnius') {
     .then((response) => response.json())
     .then(
       function (data) {
-        isTemperatureAboveZero = data.forecastTimestamps[2].airTemperature > 0;
+        isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0;
 
         console.log(isTemperatureAboveZero)
 
@@ -118,7 +118,7 @@ function renderWeatherData(city = 'vilnius') {
         const cityName = createDomElement('h3', { textContent: data.place.name });
         addToDom(weatherCard, cityName);
 
-        for (i = 2; i <= 9; i++) {
+        for (i = 0; i <= 7; i++) {
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
           switch (data.forecastTimestamps[i].conditionCode) {
@@ -179,7 +179,7 @@ function renderWeatherData(city = 'vilnius') {
             className: 'timeStamp'
           });
 
-          const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i].forecastTimeUtc.slice(11, 16) });
+          const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i + 2].forecastTimeUtc.slice(11, 16) });
           utcTime.classList.add('utcTime')
 
           const weatherIcon = createDomElement('div', {});
@@ -195,7 +195,7 @@ function renderWeatherData(city = 'vilnius') {
 
           addToDom(timeStamp, temperature);
 
-          if (i == 2) {
+          if (i == 0) {
             const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
 
             addToDom(weatherCard, timeStamp);
@@ -215,7 +215,7 @@ function renderWeatherData(city = 'vilnius') {
 
           addToDom(weatherCard, nextHoursWeather);
 
-          if (i > 2) {
+          if (i > 0) {
             timeStamp.classList.add('timeStamp-small');
 
             addToDom(nextHoursWeather, timeStamp);

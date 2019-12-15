@@ -89,7 +89,7 @@ function renderWeatherData(city = 'vilnius') {
     .then((response) => response.json())
     .then(
       function (data) {
-        isTemperatureAboveZero = data.forecastTimestamps[2].airTemperature < 0;
+        isTemperatureAboveZero = data.forecastTimestamps[2].airTemperature > 0;
 
         console.log(isTemperatureAboveZero)
 

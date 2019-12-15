@@ -126,6 +126,10 @@ input {
   border: 2px solid white;
 }
 
+input::placeholder {
+  letter-spacing: 9px;
+}
+
 input:focus {
   outline: none;
 }

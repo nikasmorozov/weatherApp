@@ -117,7 +117,7 @@ function renderWeatherData(city = 'vilnius') {
         const cityName = createDomElement('h3', { textContent: data.place.name });
         addToDom(weatherCard, cityName);
 
-        for (i = 2; i <= 7; i++) {
+        for (i = 2; i <= 9; i++) {
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
           switch (data.forecastTimestamps[i].conditionCode) {

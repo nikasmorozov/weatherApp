@@ -3,13 +3,25 @@
 html, body {
   margin: 0;
   padding: 0;
-  /* background: #e1e1e1; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   font-family: 'Alatsi', sans-serif;
   color: white;
+}
+
+h2, h3, h4, p {
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 3px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 48px;
+  margin-top: 40px;
 }
 
 #weatherApp {
@@ -25,7 +37,6 @@ html, body {
   left: 50%;
   transform: translateY(-50%);
   transform: translateX(-50%);
-
 }
 
 .searchGroup {
@@ -68,14 +79,6 @@ html, body {
   margin-top: 50px;
 }
 
-h2, h3, h4, p {
-  margin: 0;
-  line-height: 1;
-  letter-spacing: 3px;
-  font-weight: 200;
-  text-transform: uppercase;
-}
-
 .temperature {
   font-size: 24px;
   margin-bottom: 10px;
@@ -84,11 +87,6 @@ h2, h3, h4, p {
 .temperature-big {
   transform: translateX(30px);
   font-size: 120px;
-}
-
-h3 {
-  font-size: 48px;
-  margin-top: 30px;
 }
 
 .weatherConditions-big {
@@ -104,7 +102,7 @@ h3 {
   color: rgb(99, 99, 99);
   font-size: 18px;
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 input, button {
@@ -201,6 +199,15 @@ button:focus {
   }
 
   .nextHoursWeather {
-    margin-top: 20px;
+    margin-top: 35px;
+  }
+
+  .timeStamp-small:nth-of-type(6),
+  .timeStamp-small:nth-of-type(7) {
+  display: none;
+  }
+
+  .utcTime-big {
+    margin-bottom: 20px;
   }
 }

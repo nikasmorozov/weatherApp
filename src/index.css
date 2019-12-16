@@ -89,6 +89,7 @@ h3 {
 .utcTime {
   color: rgb(99, 99, 99);
   font-size: 14px;
+  color: blue;
 }
 
 .utcTime-big {

@@ -76,6 +76,10 @@ function filterCities() {
 function renderWeatherData(city = 'vilnius') {
   linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
+  if (city == 'reverse') {
+    linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/ciudai/forecasts/long-term`;
+  };
+
   console.log(linkToFetch);
 
   const app = document.getElementById('weatherApp');
@@ -90,6 +94,10 @@ function renderWeatherData(city = 'vilnius') {
     .then(
       function (data) {
         isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0;
+
+        if(city == 'reverse') {
+          isTemperatureAboveZero = !isTemperatureAboveZero;
+        };
 
         console.log(isTemperatureAboveZero)
 

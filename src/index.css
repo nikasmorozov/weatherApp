@@ -3,10 +3,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; */
   font-family: 'Alatsi', sans-serif;
   color: white;
 }
@@ -24,9 +24,9 @@ h3 {
   margin: 40px 0 5px 0;
 }
 
-#weatherApp {
+/* #weatherApp {
   display: flex;
-}
+} */
 
 .preloader {
   background-image: url(./preloader/2.gif);

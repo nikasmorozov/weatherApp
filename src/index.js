@@ -77,7 +77,7 @@ function filterCities() {
 function renderWeatherData(city = 'vilnius') {
   linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
-  if (city == 'reverse') {
+  if (city.toLowerCase() == 'reverse') {
     linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/naujiena/forecasts/long-term`;
   };
 
@@ -96,7 +96,7 @@ function renderWeatherData(city = 'vilnius') {
       function (data) {
         isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0;
 
-        if(city == 'reverse') {
+        if(city.toLowerCase() == 'reverse') {
           isTemperatureAboveZero = !isTemperatureAboveZero;
         };
 
@@ -206,7 +206,7 @@ function renderWeatherData(city = 'vilnius') {
           if (i == 0) {
             const cityName = createDomElement('h3', { textContent: data.place.name });
             addToDom(timeStamp, cityName);
-            
+
             const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
 
             addToDom(weatherCard, timeStamp);

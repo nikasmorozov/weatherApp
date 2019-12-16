@@ -123,10 +123,7 @@ function renderWeatherData(city = 'vilnius') {
         addToDom(weatherCard, searchGroup);
 
         const nextHoursWeather = createDomElement('div', { className: 'nextHoursWeather' });
-
-        const cityName = createDomElement('h3', { textContent: data.place.name });
-        addToDom(weatherCard, cityName);
-
+        
         for (i = 0; i <= 7; i++) {
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
@@ -188,6 +185,8 @@ function renderWeatherData(city = 'vilnius') {
             className: 'timeStamp'
           });
 
+          
+
           const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i + 2].forecastTimeUtc.slice(11, 16) });
           utcTime.classList.add('utcTime')
 
@@ -205,6 +204,9 @@ function renderWeatherData(city = 'vilnius') {
           addToDom(timeStamp, temperature);
 
           if (i == 0) {
+            const cityName = createDomElement('h3', { textContent: data.place.name });
+            addToDom(timeStamp, cityName);
+            
             const weatherConditions = createDomElement('h4', { innerHTML: conditionCodeLt });
 
             addToDom(weatherCard, timeStamp);

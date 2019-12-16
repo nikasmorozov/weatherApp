@@ -33,10 +33,11 @@ h3 {
   width: 64px;
   height: 64px;
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
   transform: translateY(-50%);
   transform: translateX(-50%);
+  z-index: 2;
 }
 
 .searchGroup {
@@ -49,7 +50,7 @@ h3 {
   padding: 0;
   margin: 0;
   position: absolute;
-  width: 80%;
+  width: 70%;
   margin-top: 10px;
   z-index: 1;
 }
@@ -58,7 +59,7 @@ h3 {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 3% 10% 5% 10%;
+  padding: 3% 15% 5% 15%;
   justify-content: center;
   width: 100vw;
   height: 100vh;
@@ -183,7 +184,7 @@ button:focus {
 }
 
 .clear {
-  background-image: url(./icons/./sunny.svg);
+  background-image: url(./icons/./clear.svg);
 }
 
 .isolated-clouds {
@@ -198,8 +199,12 @@ button:focus {
   background-image: url(./icons/overcast.svg);
 }
 
-.light-rain, .moderate-rain, .heavy-rain {
+.light-rain, .moderate-rain {
   background-image: url(./icons/rain.svg);
+}
+
+.heavy-rain {
+  background-image: url(./icons/heavy-rain.svg);
 }
 
 .light-snow, .moderate-snow, .heavy-snow {

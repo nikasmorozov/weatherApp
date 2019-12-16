@@ -3,10 +3,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; */
   font-family: 'Alatsi', sans-serif;
   color: white;
 }
@@ -23,10 +19,6 @@ h3 {
   font-size: 48px;
   margin: 40px 0 5px 0;
 }
-
-/* #weatherApp {
-  display: flex;
-} */
 
 .preloader {
   background-image: url(./preloader/2.gif);
@@ -45,11 +37,8 @@ h3 {
 }
 
 .locationsCard {
-  display: flex;
-  flex-direction: column;
   padding: 0;
   margin: 0;
-  position: absolute;
   width: 70%;
   margin-top: 10px;
   z-index: 1;

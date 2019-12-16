@@ -40,7 +40,7 @@ function filterCities() {
   console.clear();
 
   const filteredCities = cityData.filter(function (value) {
-    if (value.code.includes(cityToSearch.value) && cityToSearch.value) {
+    if (value.code.includes(cityToSearch.value.toLowerCase()) && cityToSearch.value) {
       return true;
     }
   });

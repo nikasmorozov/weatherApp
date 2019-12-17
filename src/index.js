@@ -78,7 +78,7 @@ function renderWeatherData(city = 'vilnius') {
   linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
   if (city.toLowerCase() == 'reverse') {
-    linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/naujiena/forecasts/long-term`;
+    linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/balbieriskis/forecasts/long-term`;
   };
 
   console.log(linkToFetch);

@@ -101,6 +101,7 @@ input, button {
   padding: 5px;
   box-sizing: border-box;
   width: 100%;
+  cursor: pointer;
 }
 
 button {

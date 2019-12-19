@@ -11,7 +11,8 @@ let weatherCard = null;
 
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
-cityToSearch.addEventListener('keyup', filterCities);
+// probably not needed:
+// cityToSearch.addEventListener('keyup', filterCities);
 
 function renderCities() {
   fetch('https://cors-anywhere.herokuapp.com/https://api.meteo.lt/v1/places')
@@ -19,7 +20,7 @@ function renderCities() {
     .then(
       function (data) {
         cityData = data;
-        cityToSearch.addEventListener('input', filterCities)
+        cityToSearch.addEventListener('input', filterCities);
       }
     )
     .catch(
@@ -62,13 +63,16 @@ function filterCities() {
 
     locationToRender.addEventListener('click', function () {
       renderWeatherData(locationToRender.id);
-    });
+      console.log('click')
 
-    locationToRender.addEventListener('keydown', function (e) {
-      if (e.keyCode === 13) {
-        renderWeatherData(locationToRender.id);
-      }
     });
+    // probably can be removed. keeping for some time as plan B:
+    // locationToRender.addEventListener('keypress', function (e) {
+    //   if (e.keyCode === 13) {
+    //     renderWeatherData(locationToRender.id);
+    //     console.log('enter')
+    //   };
+    // });
   };
 };
 
@@ -94,11 +98,15 @@ function renderWeatherData(city = 'vilnius') {
     .then((response) => response.json())
     .then(
       function (data) {
-        isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0;
+        isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature.toFixed() > 0;
 
-        if(city.toLowerCase() == 'balbieriskis') {
-          isTemperatureAboveZero = !isTemperatureAboveZero;
-        };
+        // changes the color scheme to opposite:
+        // if(city.toLowerCase() == 'balbieriskis') {
+        //   isTemperatureAboveZero = !isTemperatureAboveZero;
+        // };
+
+        (city.toLowerCase() == 'balbieriskis') ? isTemperatureAboveZero = !isTemperatureAboveZero : {};
+
 
         console.log(isTemperatureAboveZero);
 

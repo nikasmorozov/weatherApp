@@ -101,9 +101,9 @@ function renderWeatherData(city = 'vilnius') {
         isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature.toFixed() > 0;
 
         // changes the color scheme to opposite:
-        // if(city.toLowerCase() == 'balbieriskis') {
-        //   isTemperatureAboveZero = !isTemperatureAboveZero;
-        // };
+        if(city.toLowerCase() == 'balbieriskis') {
+          isTemperatureAboveZero = !isTemperatureAboveZero;
+        };
 
         (city.toLowerCase() == 'balbieriskis') ? isTemperatureAboveZero = !isTemperatureAboveZero : {};
 

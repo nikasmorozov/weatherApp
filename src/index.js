@@ -44,14 +44,13 @@ function filterCities() {
   addToDom(searchGroup, locationsCard);
 
 
-  for (i = 0; i <25; i++) {
+  for (i = 0; i <12; i++) {
     const locationToRender = createDomElement('button', {});
 
     if (filteredCities[i] != undefined) {
       locationToRender.textContent = filteredCities[i].name;
       locationToRender.id = filteredCities[i].code;
-      console.log(i);
-      console.log(filteredCities[i].code);
+      console.log(i + ' ' +filteredCities[i].code);
       addToDom(locationsCard, locationToRender)
     };
 
@@ -91,7 +90,7 @@ function renderWeatherData(city = 'vilnius') {
     .then((response) => response.json())
     .then(
       function (data) {
-        isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature.toFixed() > 0;
+        isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0;
 
         // changes the color scheme to opposite:
         if(city.toLowerCase() == 'balbieriskis') {
@@ -193,7 +192,10 @@ function renderWeatherData(city = 'vilnius') {
           weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
 
           temperatureValue = data.forecastTimestamps[i].airTemperature.toFixed(0);
-          (temperatureValue === '-0') ? temperatureValue = 0 : {};
+          
+          if (temperatureValue === '-0') {
+            temperatureValue = 0;
+          };
 
 
           const temperature = createDomElement('h2', { innerHTML: temperatureValue + '&deg;' });

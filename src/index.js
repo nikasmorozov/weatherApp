@@ -202,10 +202,13 @@ function renderWeatherData(city = 'vilnius') {
           weatherIcon.classList.add('weatherIcon');
           weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
 
-          const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&deg;' });
+          temperatureValue = data.forecastTimestamps[i].airTemperature.toFixed(0);
+          (temperatureValue === '-0') ? temperatureValue = 0 : {};
+
+
+          const temperature = createDomElement('h2', { innerHTML: temperatureValue + '&deg;' });
           temperature.classList.add('temperature');
 
-          (temperature === -0) ? temperature = 0 : {};
 
           addToDom(timeStamp, utcTime);
 

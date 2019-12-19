@@ -182,8 +182,6 @@ function renderWeatherData(city = 'vilnius') {
             className: 'timeStamp'
           });
 
-          
-
           const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i + 2].forecastTimeUtc.slice(11, 16) });
           utcTime.classList.add('utcTime');
 
@@ -197,10 +195,8 @@ function renderWeatherData(city = 'vilnius') {
             temperatureValue = 0;
           };
 
-
           const temperature = createDomElement('h2', { innerHTML: temperatureValue + '&deg;' });
           temperature.classList.add('temperature');
-
 
           addToDom(timeStamp, utcTime);
 

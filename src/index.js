@@ -4,7 +4,7 @@ const cityToSearch = createDomElement('input', { id: 'cityToSearch' });
 cityToSearch.placeholder = 'paieška';
 
 let isTemperatureAboveZero = null;
-let city = cityToSearch;
+// let city = cityToSearch;
 let cityData = null;
 let linkToFetch = null;
 let weatherCard = null;
@@ -44,12 +44,13 @@ function filterCities() {
   addToDom(searchGroup, locationsCard);
 
 
-  for (i = 0; i < 10; i++) {
+  for (i = 0; i <25; i++) {
     const locationToRender = createDomElement('button', {});
 
     if (filteredCities[i] != undefined) {
       locationToRender.textContent = filteredCities[i].name;
       locationToRender.id = filteredCities[i].code;
+      console.log(i);
       console.log(filteredCities[i].code);
       addToDom(locationsCard, locationToRender)
     };
@@ -63,16 +64,8 @@ function filterCities() {
 
     locationToRender.addEventListener('click', function () {
       renderWeatherData(locationToRender.id);
-      console.log('click')
 
     });
-    // probably can be removed. keeping for some time as plan B:
-    // locationToRender.addEventListener('keypress', function (e) {
-    //   if (e.keyCode === 13) {
-    //     renderWeatherData(locationToRender.id);
-    //     console.log('enter')
-    //   };
-    // });
   };
 };
 
@@ -104,9 +97,6 @@ function renderWeatherData(city = 'vilnius') {
         if(city.toLowerCase() == 'balbieriskis') {
           isTemperatureAboveZero = !isTemperatureAboveZero;
         };
-
-        (city.toLowerCase() == 'balbieriskis') ? isTemperatureAboveZero = !isTemperatureAboveZero : {};
-
 
         console.log(isTemperatureAboveZero);
 

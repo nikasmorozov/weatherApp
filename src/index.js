@@ -13,12 +13,6 @@ const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
 cityToSearch.addEventListener('keyup', filterCities);
 
-addEventListener('keydown', function (e) {
-  if (e.keyCode === 13) {
-    renderWeatherData(city.value);
-  }
-});
-
 function renderCities() {
   fetch('https://cors-anywhere.herokuapp.com/https://api.meteo.lt/v1/places')
     .then((response => response.json()))
@@ -50,7 +44,6 @@ function filterCities() {
 
 
   for (i = 0; i < 10; i++) {
-
     const locationToRender = createDomElement('button', {});
 
     if (filteredCities[i] != undefined) {
@@ -58,7 +51,6 @@ function filterCities() {
       locationToRender.id = filteredCities[i].code;
       console.log(filteredCities[i].code);
       addToDom(locationsCard, locationToRender)
-      // cityToSearch.value = locationToRender.textContent;
     };
 
     if (isTemperatureAboveZero) {
@@ -70,6 +62,12 @@ function filterCities() {
 
     locationToRender.addEventListener('click', function () {
       renderWeatherData(locationToRender.id);
+    });
+
+    locationToRender.addEventListener('keydown', function (e) {
+      if (e.keyCode === 13) {
+        renderWeatherData(locationToRender.id);
+      }
     });
   };
 };

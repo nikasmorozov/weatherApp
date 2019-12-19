@@ -75,11 +75,13 @@ function filterCities() {
 function renderWeatherData(city = 'vilnius') {
   linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
-  if (city.toLowerCase() == 'reverse') {
+  if (city.toLowerCase() == 'balbieriskis') {
     linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/balbieriskis/forecasts/long-term`;
   };
 
   console.log(linkToFetch);
+
+  cityToSearch.value = null;
 
   const app = document.getElementById('weatherApp');
 
@@ -94,7 +96,7 @@ function renderWeatherData(city = 'vilnius') {
       function (data) {
         isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0;
 
-        if(city.toLowerCase() == 'reverse') {
+        if(city.toLowerCase() == 'balbieriskis') {
           isTemperatureAboveZero = !isTemperatureAboveZero;
         };
 
@@ -238,8 +240,6 @@ function renderWeatherData(city = 'vilnius') {
         };
 
         console.log(data);
-
-        cityToSearch.value = null;
 
         locationsCard.innerHTML = null;
       }

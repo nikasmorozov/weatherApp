@@ -131,7 +131,7 @@ input:focus:-moz-placeholder{
 
 button:focus {
   outline: none;
-  color: white;
+  /* color: white; */
 }
 
 .buttonBackgroundWarm {
@@ -140,6 +140,7 @@ button:focus {
 
 .buttonBackgroundWarm:focus {
   background-color: #d1ac32;
+  background-color: white;
 }
 
 .buttonBackgroundCold {
@@ -148,6 +149,7 @@ button:focus {
 
 .buttonBackgroundCold:focus {
   background-color: #81b9bf;
+  background-color: white;
 }
 
 .weatherIcon {

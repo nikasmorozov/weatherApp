@@ -196,14 +196,16 @@ function renderWeatherData(city = 'vilnius') {
           
 
           const utcTime = createDomElement('h4', { textContent: data.forecastTimestamps[i + 2].forecastTimeUtc.slice(11, 16) });
-          utcTime.classList.add('utcTime')
+          utcTime.classList.add('utcTime');
 
           const weatherIcon = createDomElement('div', {});
-          weatherIcon.classList.add('weatherIcon')
+          weatherIcon.classList.add('weatherIcon');
           weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
 
           const temperature = createDomElement('h2', { innerHTML: data.forecastTimestamps[i].airTemperature.toFixed(0) + '&deg;' });
-          temperature.classList.add('temperature')
+          temperature.classList.add('temperature');
+
+          (temperature === -0) ? temperature = 0 : {};
 
           addToDom(timeStamp, utcTime);
 

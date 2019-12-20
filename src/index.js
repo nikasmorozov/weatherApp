@@ -240,6 +240,10 @@ function renderWeatherData(city = 'vilnius') {
           };
         };
 
+        const sourceMentioning = createDomElement('p', { textContent: 'Duomenų šaltinis: LHMT' });
+        sourceMentioning.classList.add('sourceMentioning');
+        addToDom(weatherCard, sourceMentioning);
+
         console.log(data);
 
         locationsCard.innerHTML = null;
@@ -255,3 +259,24 @@ function renderWeatherData(city = 'vilnius') {
 renderCities();
 
 renderWeatherData();
+
+var options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+function success(pos) {
+  var crd = pos.coords;
+
+  console.log('Your current position is:');
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);

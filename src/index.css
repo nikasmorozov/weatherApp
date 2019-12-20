@@ -204,6 +204,10 @@ button:focus {
   background-image: url(./icons/fog.svg);
 }
 
+.sourceMentioning {
+  font-size: 12px;
+}
+
 @media screen and (max-width: 768px){
   .weatherCard {
     padding: 3% 7% 3% 7%;

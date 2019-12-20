@@ -45,7 +45,7 @@ h3 {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 3% 10% 3% 10%;
+  padding: 3% 10% 1% 10%;
   justify-content: space-between;
   width: 100vw;
   min-height: 100vh;

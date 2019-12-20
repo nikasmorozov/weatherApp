@@ -257,6 +257,7 @@ function renderWeatherData(city = 'vilnius') {
 
             addToDom(weatherCard, timeStamp);
 
+            utcTime.textContent = 'dabar';
             utcTime.classList.add('utcTime-big');
             addToDom(timeStamp, utcTime);
 

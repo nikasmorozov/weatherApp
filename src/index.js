@@ -4,15 +4,48 @@ const cityToSearch = createDomElement('input', { id: 'cityToSearch' });
 cityToSearch.placeholder = 'paieška';
 
 let isTemperatureAboveZero = null;
-// let city = cityToSearch;
+let city = null;
 let cityData = null;
 let linkToFetch = null;
 let weatherCard = null;
 
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
-// probably not needed:
-// cityToSearch.addEventListener('keyup', filterCities);
+function geolocation() {
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+
+  function success(pos) {
+    var crd = pos.coords;
+    // console.log(`Latitude : ${crd.latitude}`);
+    // console.log(`Longitude: ${crd.longitude}`);
+
+    fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`)
+    .then((response => response.json()))
+    .then(
+      function (data) {
+        console.log(data);
+        renderWeatherData(data.address.city.toLowerCase());
+      }
+    )
+    .catch(
+      function (e) {
+        alert('failed to fetch geocode list')
+      }
+    );
+  }
+
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error, options);
+};
+
+geolocation();
 
 function renderCities() {
   fetch('https://cors-anywhere.herokuapp.com/https://api.meteo.lt/v1/places')
@@ -44,13 +77,13 @@ function filterCities() {
   addToDom(searchGroup, locationsCard);
 
 
-  for (i = 0; i <12; i++) {
+  for (i = 0; i < 12; i++) {
     const locationToRender = createDomElement('button', {});
 
     if (filteredCities[i] != undefined) {
       locationToRender.textContent = filteredCities[i].name;
       locationToRender.id = filteredCities[i].code;
-      console.log(i + ' ' +filteredCities[i].code);
+      console.log(i + ' ' + filteredCities[i].code);
       addToDom(locationsCard, locationToRender)
     };
 
@@ -93,7 +126,7 @@ function renderWeatherData(city = 'vilnius') {
         isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0;
 
         // changes the color scheme to opposite:
-        if(city.toLowerCase() == 'balbieriskis') {
+        if (city.toLowerCase() == 'balbieriskis') {
           isTemperatureAboveZero = !isTemperatureAboveZero;
         };
 
@@ -120,7 +153,7 @@ function renderWeatherData(city = 'vilnius') {
         addToDom(weatherCard, searchGroup);
 
         const nextHoursWeather = createDomElement('div', { className: 'nextHoursWeather' });
-        
+
         for (i = 0; i <= 7; i++) {
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
@@ -190,7 +223,7 @@ function renderWeatherData(city = 'vilnius') {
           weatherIcon.classList.add(data.forecastTimestamps[i].conditionCode);
 
           temperatureValue = data.forecastTimestamps[i].airTemperature.toFixed(0);
-          
+
           if (temperatureValue === '-0') {
             temperatureValue = 0;
           };
@@ -258,25 +291,4 @@ function renderWeatherData(city = 'vilnius') {
 
 renderCities();
 
-renderWeatherData();
-
-var options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-};
-
-function success(pos) {
-  var crd = pos.coords;
-
-  console.log('Your current position is:');
-  console.log(`Latitude : ${crd.latitude}`);
-  console.log(`Longitude: ${crd.longitude}`);
-  console.log(`More or less ${crd.accuracy} meters.`);
-}
-
-function error(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-navigator.geolocation.getCurrentPosition(success, error, options);
+// renderWeatherData();

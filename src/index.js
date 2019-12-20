@@ -28,12 +28,24 @@ function geolocation() {
     .then(
       function (data) {
         console.log(data);
-        renderWeatherData(data.address.city.toLowerCase());
+
+        let geolocatedPlace = undefined;
+        if(data.address.city) {
+          geolocatedPlace = data.address.city.toLowerCase();
+        };
+        if(data.address.town) {
+          geolocatedPlace = data.address.town.toLowerCase();
+        };
+        if(data.address.village) {
+          geolocatedPlace = data.address.village.toLowerCase();
+        };
+
+        renderWeatherData(geolocatedPlace);
       }
     )
     .catch(
       function (e) {
-        alert('failed to fetch geocode list')
+        alert('failed to fetch geocode');
       }
     );
   }

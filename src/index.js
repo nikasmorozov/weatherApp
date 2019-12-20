@@ -4,60 +4,18 @@ const cityToSearch = createDomElement('input', { id: 'cityToSearch' });
 cityToSearch.placeholder = 'paieška';
 
 let isTemperatureAboveZero = null;
-let city = null;
+// let city = null;
 let cityData = null;
 let linkToFetch = null;
 let weatherCard = null;
 
+const preloader = createDomElement('div', {
+  className: 'preloader'
+});
+
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
 
-function geolocation() {
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0
-  };
 
-  function success(pos) {
-    var crd = pos.coords;
-    // console.log(`Latitude : ${crd.latitude}`);
-    // console.log(`Longitude: ${crd.longitude}`);
-
-    fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`)
-    .then((response => response.json()))
-    .then(
-      function (data) {
-        console.log(data);
-
-        let geolocatedPlace = undefined;
-        if(data.address.city) {
-          geolocatedPlace = data.address.city.toLowerCase();
-        };
-        if(data.address.town) {
-          geolocatedPlace = data.address.town.toLowerCase();
-        };
-        if(data.address.village) {
-          geolocatedPlace = data.address.village.toLowerCase();
-        };
-
-        renderWeatherData(geolocatedPlace);
-      }
-    )
-    .catch(
-      function (e) {
-        alert('failed to fetch geocode');
-      }
-    );
-  }
-
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-
-  navigator.geolocation.getCurrentPosition(success, error, options);
-};
-
-geolocation();
 
 function renderCities() {
   fetch('https://cors-anywhere.herokuapp.com/https://api.meteo.lt/v1/places')
@@ -126,9 +84,7 @@ function renderWeatherData(city = 'vilnius') {
 
   const app = document.getElementById('weatherApp');
 
-  const preloader = createDomElement('div', {
-    className: 'preloader'
-  });
+  
   addToDom(weatherApp, preloader);
 
   fetch(linkToFetch)
@@ -304,4 +260,52 @@ function renderWeatherData(city = 'vilnius') {
 
 renderCities();
 
-// renderWeatherData();
+function geolocation() {
+  addToDom(weatherApp, preloader);
+
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+
+  function success(pos) {
+    var crd = pos.coords;
+    // console.log(`Latitude : ${crd.latitude}`);
+    // console.log(`Longitude: ${crd.longitude}`);
+
+    fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`)
+    .then((response => response.json()))
+    .then(
+      function (data) {
+        console.log(data);
+
+        let geolocatedPlace = undefined;
+        if(data.address.city) {
+          geolocatedPlace = data.address.city.toLowerCase();
+        };
+        if(data.address.town) {
+          geolocatedPlace = data.address.town.toLowerCase();
+        };
+        if(data.address.village) {
+          geolocatedPlace = data.address.village.toLowerCase();
+        };
+
+        renderWeatherData(geolocatedPlace);
+      }
+    )
+    .catch(
+      function (e) {
+        alert('failed to fetch geocode');
+      }
+    );
+  }
+
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error, options);
+};
+
+geolocation();

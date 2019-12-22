@@ -272,10 +272,10 @@ function geolocation() {
     // console.log(`Latitude : ${crd.latitude}`);
     // console.log(`Longitude: ${crd.longitude}`);
 
-    // fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`)
+    fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`)
 
     //kaimo lokacija testavimui
-    fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=55.193116&lon=25.868977&format=json`)
+    // fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=55.193116&lon=25.868977&format=json`)
 
     .then((response => response.json()))
     .then(

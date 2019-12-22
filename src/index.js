@@ -1,10 +1,10 @@
 const { createDomElement, addToDom } = require('./utilities');
+const { latinise } = require('./latinise_utility');
 const searchGroup = createDomElement('div', { id: 'searchGroup' });
 const cityToSearch = createDomElement('input', { id: 'cityToSearch' });
 cityToSearch.placeholder = 'paieška';
 
 let isTemperatureAboveZero = null;
-// let city = null;
 let cityData = null;
 let linkToFetch = null;
 let weatherCard = null;
@@ -14,8 +14,6 @@ const preloader = createDomElement('div', {
 });
 
 const locationsCard = createDomElement('ul', { className: 'locationsCard' });
-
-
 
 function renderCities() {
   fetch('https://cors-anywhere.herokuapp.com/https://api.meteo.lt/v1/places')
@@ -274,23 +272,27 @@ function geolocation() {
     // console.log(`Latitude : ${crd.latitude}`);
     // console.log(`Longitude: ${crd.longitude}`);
 
-    fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`)
+    // fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`)
+
+    //kaimo lokacija testavimui
+    fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=55.193116&lon=25.868977&format=json`)
+
     .then((response => response.json()))
     .then(
       function (data) {
         console.log(data);
 
         let geolocatedPlace = undefined;
+        if(data.address.state) {
+          geolocatedPlace = data.address.state.toLowerCase().split(' ')[0].latinise();
+        };
         if(data.address.city) {
-          geolocatedPlace = data.address.city.toLowerCase();
+          geolocatedPlace = data.address.city.toLowerCase().latinise();
         };
         if(data.address.town) {
-          geolocatedPlace = data.address.town.toLowerCase();
+          geolocatedPlace = data.address.town.toLowerCase().latinise();
         };
-        if(data.address.village) {
-          geolocatedPlace = data.address.village.toLowerCase();
-        };
-
+        console.log(geolocatedPlace);
         renderWeatherData(geolocatedPlace);
       }
     )

@@ -120,7 +120,7 @@ function renderWeatherData(city = 'vilnius') {
 
         const nextHoursWeather = createDomElement('div', { className: 'nextHoursWeather' });
 
-        for (i = 0; i <= 7; i++) {
+        for (i = 0; i <= 12; i++) {
           console.log(i + ' ' + data.forecastTimestamps[i].airTemperature);
 
           switch (data.forecastTimestamps[i].conditionCode) {

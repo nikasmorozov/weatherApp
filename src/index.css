@@ -84,6 +84,8 @@ h3 {
 .utcTime {
   color: rgb(99, 99, 99);
   font-size: 14px;
+  letter-spacing: 1px;
+
 }
 
 .utcTime-big {
@@ -241,12 +243,17 @@ button:focus {
     padding-bottom: 60px;
   }
 
-  .timeStamp-small:nth-of-type(6),
-  .timeStamp-small:nth-of-type(7) {
+  .timeStamp-small:nth-of-type(n+6) {
   display: none;
   }
 
   .locationsCard {
     width: 86%;
   }
+}
+
+@media screen and (max-width: 1200px) {
+  .timeStamp-small:nth-of-type(n+9) {
+    display: none;
+    }
 }

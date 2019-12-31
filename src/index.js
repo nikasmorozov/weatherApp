@@ -7,7 +7,7 @@ cityToSearch.placeholder = 'paieška';
 let isTemperatureAboveZero = null;
 let cityData = null;
 let linkToFetch = null;
-let weatherCard = null;
+let weatherCard = {};
 
 const preloader = createDomElement('div', {
   className: 'preloader'
@@ -26,10 +26,10 @@ function renderCities() {
     )
     .catch(
       function (e) {
-        alert('failed to fetch locations list')
+        alert('failed to fetch locations list');
       }
     );
-};
+}
 
 function filterCities() {
 
@@ -52,29 +52,29 @@ function filterCities() {
       locationToRender.textContent = filteredCities[i].name;
       locationToRender.id = filteredCities[i].code;
       console.log(i + ' ' + filteredCities[i].code);
-      addToDom(locationsCard, locationToRender)
-    };
+      addToDom(locationsCard, locationToRender);
+    }
 
     if (isTemperatureAboveZero) {
       locationToRender.className = 'buttonBackgroundWarm';
     } else {
       locationToRender.className = 'buttonBackgroundCold';
 
-    };
+    }
 
     locationToRender.addEventListener('click', function () {
       renderWeatherData(locationToRender.id);
 
     });
-  };
-};
+  }
+}
 
 function renderWeatherData(city = 'vilnius') {
   linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/${city}/forecasts/long-term`;
 
   if (city.toLowerCase() == 'balbieriskis') {
     linkToFetch = `https://cors-anywhere.herokuapp.com/http://api.meteo.lt/v1/places/balbieriskis/forecasts/long-term`;
-  };
+  }
 
   console.log(linkToFetch);
 
@@ -94,7 +94,7 @@ function renderWeatherData(city = 'vilnius') {
         // changes the color scheme to opposite:
         if (city.toLowerCase() == 'balbieriskis') {
           isTemperatureAboveZero = !isTemperatureAboveZero;
-        };
+        }
 
         console.log(isTemperatureAboveZero);
 
@@ -110,7 +110,7 @@ function renderWeatherData(city = 'vilnius') {
         } else {
           weatherCard.classList.add('BelowZero');
           cityToSearch.style.backgroundColor = '#b2ebf2';
-        };
+        }
 
         addToDom(app, weatherCard);
 
@@ -175,7 +175,7 @@ function renderWeatherData(city = 'vilnius') {
             case 'na':
               conditionCodeLt = 'oro sąlygos nenustatytos';
               break;
-          };
+          }
 
           const timeStamp = createDomElement('div', {
             className: 'timeStamp'
@@ -192,7 +192,7 @@ function renderWeatherData(city = 'vilnius') {
 
           if (temperatureValue === '-0') {
             temperatureValue = 0;
-          };
+          }
 
           const temperature = createDomElement('h2', { innerHTML: temperatureValue + '&deg;' });
           temperature.classList.add('temperature');
@@ -218,12 +218,12 @@ function renderWeatherData(city = 'vilnius') {
             weatherIcon.classList.add('weatherIcon-big');
             addToDom(timeStamp, weatherIcon);
 
-            temperature.classList.add('temperature-big')
+            temperature.classList.add('temperature-big');
             addToDom(timeStamp, temperature);
 
-            weatherConditions.classList.add('weatherConditions-big')
+            weatherConditions.classList.add('weatherConditions-big');
             addToDom(timeStamp, weatherConditions);
-          };
+          }
 
           addToDom(weatherCard, nextHoursWeather);
 
@@ -237,8 +237,8 @@ function renderWeatherData(city = 'vilnius') {
             addToDom(timeStamp, temperature);
 
             addToDom(timeStamp, utcTime);
-          };
-        };
+          }
+        }
 
         const sourceMentioning = createDomElement('p', { textContent: 'Duomenų šaltinis: LHMT' });
         sourceMentioning.classList.add('sourceMentioning');
@@ -285,13 +285,13 @@ function geolocation() {
         let geolocatedPlace = undefined;
         if(data.address.state) {
           geolocatedPlace = data.address.state.toLowerCase().split(' ')[0].latinise();
-        };
+        }
         if(data.address.city) {
           geolocatedPlace = data.address.city.toLowerCase().latinise();
-        };
+        }
         if(data.address.town) {
           geolocatedPlace = data.address.town.toLowerCase().latinise();
-        };
+        }
         console.log(geolocatedPlace);
         renderWeatherData(geolocatedPlace);
       }
@@ -299,6 +299,7 @@ function geolocation() {
     .catch(
       function (e) {
         alert('failed to fetch geocode');
+        renderWeatherData();
       }
     );
   }
@@ -308,6 +309,6 @@ function geolocation() {
   }
 
   navigator.geolocation.getCurrentPosition(success, error, options);
-};
+}
 
 geolocation();

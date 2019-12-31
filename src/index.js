@@ -98,7 +98,7 @@ function renderWeatherData(city = 'vilnius') {
 
         console.log(isTemperatureAboveZero);
 
-        app.innerHTML = {};
+        app.removeChild(preloader);
 
         weatherCard = createDomElement('div', {
           className: 'weatherCard'

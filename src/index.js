@@ -7,7 +7,7 @@ cityToSearch.placeholder = 'paieška';
 let isTemperatureAboveZero = null;
 let cityData = null;
 let linkToFetch = null;
-let weatherCard = {};
+let weatherCard = null;
 
 const preloader = createDomElement('div', {
   className: 'preloader'
@@ -98,7 +98,7 @@ function renderWeatherData(city = 'vilnius') {
 
         console.log(isTemperatureAboveZero);
 
-        app.innerHTML = null;
+        app.innerHTML = {};
 
         weatherCard = createDomElement('div', {
           className: 'weatherCard'

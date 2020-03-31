@@ -92,8 +92,8 @@ function renderWeatherData(city = 'vilnius') {
       if (city.toLowerCase() == 'balbieriskis') {
         isTemperatureAboveZero = !isTemperatureAboveZero
       }
-      app.removeChild(preloader)
-
+      preloader.remove()
+            
       weatherCard = createDomElement('div', {
         className: 'weatherCard'
       })

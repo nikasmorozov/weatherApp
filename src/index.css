@@ -41,6 +41,11 @@ h3 {
   position: absolute;
 }
 
+#searchGroup{
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .weatherCard {
   position: relative;
   display: flex;
@@ -153,6 +158,17 @@ button:focus {
 .buttonBackgroundCold:focus {
   background-color: #81b9bf;
   background-color: white;
+}
+
+.findMyLocationButton {
+  width: 31px;
+  height: 31px;
+  display: inline-flex;
+  background-position: center;
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-color: grey;
+  background-image: url('../src/icons/aim.png');
 }
 
 .weatherIcon {

@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./preloader/2.gif":[["2.add2eb64.gif","preloader/2.gif"],"preloader/2.gif"],"./icons/clear.svg":[["clear.5997333f.svg","icons/clear.svg"],"icons/clear.svg"],"./icons/isolated-clouds.svg":[["isolated-clouds.08c11feb.svg","icons/isolated-clouds.svg"],"icons/isolated-clouds.svg"],"./icons/scattered-clouds.svg":[["scattered-clouds.fe9b152d.svg","icons/scattered-clouds.svg"],"icons/scattered-clouds.svg"],"./icons/overcast.svg":[["overcast.fd0c8db6.svg","icons/overcast.svg"],"icons/overcast.svg"],"./icons/rain.svg":[["rain.73e1a644.svg","icons/rain.svg"],"icons/rain.svg"],"./icons/heavy-rain.svg":[["heavy-rain.a7b08240.svg","icons/heavy-rain.svg"],"icons/heavy-rain.svg"],"./icons/snow.svg":[["snow.d22fa30a.svg","icons/snow.svg"],"icons/snow.svg"],"./icons/fog.svg":[["fog.04c57ef1.svg","icons/fog.svg"],"icons/fog.svg"],"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./preloader/2.gif":[["2.add2eb64.gif","preloader/2.gif"],"preloader/2.gif"],"./icons/aim.png":[["aim.f6dbc310.png","icons/aim.png"],"icons/aim.png"],"./icons/clear.svg":[["clear.5997333f.svg","icons/clear.svg"],"icons/clear.svg"],"./icons/isolated-clouds.svg":[["isolated-clouds.08c11feb.svg","icons/isolated-clouds.svg"],"icons/isolated-clouds.svg"],"./icons/scattered-clouds.svg":[["scattered-clouds.fe9b152d.svg","icons/scattered-clouds.svg"],"icons/scattered-clouds.svg"],"./icons/overcast.svg":[["overcast.fd0c8db6.svg","icons/overcast.svg"],"icons/overcast.svg"],"./icons/rain.svg":[["rain.73e1a644.svg","icons/rain.svg"],"icons/rain.svg"],"./icons/heavy-rain.svg":[["heavy-rain.a7b08240.svg","icons/heavy-rain.svg"],"icons/heavy-rain.svg"],"./icons/snow.svg":[["snow.d22fa30a.svg","icons/snow.svg"],"icons/snow.svg"],"./icons/fog.svg":[["fog.04c57ef1.svg","icons/fog.svg"],"icons/fog.svg"],"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58204" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49514" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

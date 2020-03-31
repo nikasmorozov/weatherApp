@@ -27,7 +27,7 @@ function renderCities() {
       cityToSearch.addEventListener('input', filterCities)
     })
     .catch(function(e) {
-      alert('failed to fetch locations list')
+      console.log('failed to fetch locations list')
     })
 }
 
@@ -261,7 +261,7 @@ function renderWeatherData(city = 'vilnius') {
 renderCities()
 
 function geolocation() {
-  addToDom(weatherApp, preloader)
+  // addToDom(weatherApp, preloader)
 
   var options = {
     enableHighAccuracy: true,
@@ -271,8 +271,8 @@ function geolocation() {
 
   function success(pos) {
     var crd = pos.coords
-    // console.log(`Latitude : ${crd.latitude}`);
-    // console.log(`Longitude: ${crd.longitude}`);
+    console.log(`Latitude : ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
 
     fetch(
       `https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`
@@ -302,6 +302,7 @@ function geolocation() {
         renderWeatherData()
       })
   }
+  renderWeatherData()
 
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`)
@@ -310,4 +311,4 @@ function geolocation() {
   navigator.geolocation.getCurrentPosition(success, error, options)
 }
 
-geolocation()
+renderWeatherData()

@@ -16,6 +16,10 @@ const preloader = createDomElement("div", {
 const findMyLocationButton = createDomElement("button", {
   className: "findMyLocationButton"
 });
+findMyLocationButton.addEventListener("click", function() {
+  geolocation();
+  addToDom(weatherApp, preloader);
+});
 
 const locationsCard = createDomElement("ul", { className: "locationsCard" });
 
@@ -111,7 +115,6 @@ function renderWeatherForecast(data) {
   }
 
   if (weatherCard) {
-    findMyLocationButton.remove();
     weatherCard.remove();
   }
   preloader.remove();
@@ -121,14 +124,10 @@ function renderWeatherForecast(data) {
   });
 
   addToDom(searchGroup, findMyLocationButton);
-  findMyLocationButton.addEventListener("click", function() {
-    geolocation();
-    addToDom(weatherApp, preloader);
-  });
-
+  
   if (isTemperatureAboveZero) {
     weatherCard.classList.add("AboveZero");
-    findMyLocationButton.classList.add("AboveZero");
+    // findMyLocationButton.classList.add("AboveZero");
     cityToSearch.style.backgroundColor = "#ffe48a";
   } else {
     weatherCard.classList.add("BelowZero");
@@ -282,6 +281,8 @@ function renderWeatherForecast(data) {
 }
 
 function geolocation() {
+  findMyLocationButton.remove();
+
   navigator.geolocation.getCurrentPosition(success, error, options);
 
   var options = {
@@ -333,6 +334,4 @@ function geolocation() {
 }
 
 renderCities();
-
 fetchWeatherData();
-console.clear();

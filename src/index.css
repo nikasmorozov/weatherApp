@@ -164,10 +164,11 @@ button:focus {
   width: 31px;
   height: 31px;
   display: inline-flex;
+  position: absolute;
   background-position: center;
   background-size: 70%;
   background-repeat: no-repeat;
-  background-image: url('../src/icons/aim.png');
+  background-image: url('../src/icons/aim.svg');
 }
 
 .weatherIcon {

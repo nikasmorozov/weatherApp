@@ -13,6 +13,10 @@ const preloader = createDomElement("div", {
   className: "preloader"
 });
 
+const findMyLocationButton = createDomElement("button", {
+  className: "findMyLocationButton"
+});
+
 const locationsCard = createDomElement("ul", { className: "locationsCard" });
 
 function renderCities() {
@@ -93,12 +97,7 @@ function fetchWeatherData(city = "vilnius") {
 }
 
 function renderWeatherForecast(data) {
-  
   console.log(data);
-
-  const findMyLocationButton = createDomElement("button", {
-    className: "findMyLocationButton"
-  });
 
   cityToSearch.value = null;
 
@@ -112,6 +111,7 @@ function renderWeatherForecast(data) {
   }
 
   if (weatherCard) {
+    findMyLocationButton.remove();
     weatherCard.remove();
   }
   preloader.remove();
@@ -124,14 +124,15 @@ function renderWeatherForecast(data) {
   findMyLocationButton.addEventListener("click", function() {
     geolocation();
     addToDom(weatherApp, preloader);
-
   });
 
   if (isTemperatureAboveZero) {
     weatherCard.classList.add("AboveZero");
+    findMyLocationButton.classList.add("AboveZero");
     cityToSearch.style.backgroundColor = "#ffe48a";
   } else {
     weatherCard.classList.add("BelowZero");
+    findMyLocationButton.classList.add("BelowZero");
     cityToSearch.style.backgroundColor = "#b2ebf2";
   }
 
@@ -280,11 +281,11 @@ function renderWeatherForecast(data) {
   locationsCard.innerHTML = null;
 }
 
-renderCities();
-
 function geolocation() {
+  navigator.geolocation.getCurrentPosition(success, error, options);
+
   var options = {
-    enableHighAccuracy: false,
+    enableHighAccuracy: true,
     timeout: 10000,
     maximumAge: 0
   };
@@ -294,15 +295,16 @@ function geolocation() {
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
 
-    // fetch(
-    //   `https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`
-    // )
+    fetch(
+      `https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`
+    )
       //kaimo lokacija testavimui
-      fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=55.193116&lon=25.868977&format=json`)
+      // fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=55.193116&lon=25.868977&format=json`)
 
       .then(response => response.json())
       .then(function(data) {
-        let geolocatedPlace = undefined;
+        let geolocatedPlace = null;
+
         if (data.address.state) {
           geolocatedPlace = data.address.state
             .toLowerCase()
@@ -315,21 +317,22 @@ function geolocation() {
         if (data.address.town) {
           geolocatedPlace = data.address.town.toLowerCase().latinise();
         }
-        console.log(geolocatedPlace);
         fetchWeatherData(geolocatedPlace);
+        console.log(geolocatedPlace);
       })
       .catch(function(e) {
         console.log(e);
-        alert("failed to fetch geocode");
-        fetchWeatherData();
+        console.log("failed to fetch geocode");
+        // fetchWeatherData();
       });
   }
 
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
-
-  navigator.geolocation.getCurrentPosition(success, error, options);
 }
 
+renderCities();
+
 fetchWeatherData();
+console.clear();

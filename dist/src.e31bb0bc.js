@@ -2015,6 +2015,9 @@ var weatherCard = null;
 var preloader = createDomElement("div", {
   className: "preloader"
 });
+var findMyLocationButton = createDomElement("button", {
+  className: "findMyLocationButton"
+});
 var locationsCard = createDomElement("ul", {
   className: "locationsCard"
 });
@@ -2093,9 +2096,6 @@ function fetchWeatherData() {
 
 function renderWeatherForecast(data) {
   console.log(data);
-  var findMyLocationButton = createDomElement("button", {
-    className: "findMyLocationButton"
-  });
   cityToSearch.value = null;
   var app = document.getElementById("weatherApp");
   isTemperatureAboveZero = data.forecastTimestamps[0].airTemperature > 0; // changes the color scheme to opposite for demo purposes:
@@ -2105,6 +2105,7 @@ function renderWeatherForecast(data) {
   }
 
   if (weatherCard) {
+    findMyLocationButton.remove();
     weatherCard.remove();
   }
 
@@ -2120,9 +2121,11 @@ function renderWeatherForecast(data) {
 
   if (isTemperatureAboveZero) {
     weatherCard.classList.add("AboveZero");
+    findMyLocationButton.classList.add("AboveZero");
     cityToSearch.style.backgroundColor = "#ffe48a";
   } else {
     weatherCard.classList.add("BelowZero");
+    findMyLocationButton.classList.add("BelowZero");
     cityToSearch.style.backgroundColor = "#b2ebf2";
   }
 
@@ -2251,11 +2254,10 @@ function renderWeatherForecast(data) {
   locationsCard.innerHTML = null;
 }
 
-renderCities();
-
 function geolocation() {
+  navigator.geolocation.getCurrentPosition(success, error, options);
   var options = {
-    enableHighAccuracy: false,
+    enableHighAccuracy: true,
     timeout: 10000,
     maximumAge: 0
   };
@@ -2263,15 +2265,13 @@ function geolocation() {
   function success(pos) {
     var crd = pos.coords;
     console.log("Latitude : ".concat(crd.latitude));
-    console.log("Longitude: ".concat(crd.longitude)); // fetch(
-    //   `https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=${crd.latitude}&lon=${crd.longitude}&format=json`
-    // )
-    //kaimo lokacija testavimui
-
-    fetch("https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=55.193116&lon=25.868977&format=json").then(function (response) {
+    console.log("Longitude: ".concat(crd.longitude));
+    fetch("https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=".concat(crd.latitude, "&lon=").concat(crd.longitude, "&format=json")) //kaimo lokacija testavimui
+    // fetch(`https://eu1.locationiq.com/v1/reverse.php?key=pk.003de9fcbbfbb48f532138a23ccbf018&lat=55.193116&lon=25.868977&format=json`)
+    .then(function (response) {
       return response.json();
     }).then(function (data) {
-      var geolocatedPlace = undefined;
+      var geolocatedPlace = null;
 
       if (data.address.state) {
         geolocatedPlace = data.address.state.toLowerCase().split(" ")[0].latinise();
@@ -2285,23 +2285,22 @@ function geolocation() {
         geolocatedPlace = data.address.town.toLowerCase().latinise();
       }
 
-      console.log(geolocatedPlace);
       fetchWeatherData(geolocatedPlace);
+      console.log(geolocatedPlace);
     }).catch(function (e) {
       console.log(e);
-      alert("failed to fetch geocode");
-      fetchWeatherData();
+      console.log("failed to fetch geocode"); // fetchWeatherData();
     });
   }
 
   function error(err) {
     console.warn("ERROR(".concat(err.code, "): ").concat(err.message));
   }
-
-  navigator.geolocation.getCurrentPosition(success, error, options);
 }
 
+renderCities();
 fetchWeatherData();
+console.clear();
 },{"./utilities":"utilities/index.js","./latinise_utility":"latinise_utility/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -2330,7 +2329,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49514" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56420" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

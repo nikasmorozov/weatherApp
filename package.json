@@ -28,6 +28,7 @@
     "parcel": "^1.12.3"
   },
   "dependencies": {
-    "geolocator": "^2.1.5"
+    "geolocator": "^2.1.5",
+    "spin.js": "^4.1.0"
   }
 }

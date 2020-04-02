@@ -21,11 +21,12 @@ h3 {
 }
 
 .preloader {
-  background-image: url(./preloader/2.gif);
-  width: 64px;
-  height: 64px;
+  background-image: url(./preloader/773.gif);
+  /* background-size: cover; */
+  width: 150px;
+  height: 150px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translateY(-50%);
   transform: translateX(-50%);

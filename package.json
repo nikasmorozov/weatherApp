@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/Mindaugas-Jacionis/parcel-starter#readme",
   "devDependencies": {
-    "parcel": "^1.12.3"
+    "parcel": "^2.8.2"
   },
   "dependencies": {
     "geolocator": "^2.1.5",
